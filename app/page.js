@@ -71,24 +71,24 @@ export default function Page() {
           SECTION 1: PREMIUM HERO
           ========================================= */}
       <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 pt-24 pb-32 max-w-7xl mx-auto">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-16 lg:gap-8">
+        {/* Changed to flex-col (instead of flex-col-reverse) so text is top and image is bottom on mobile */}
+        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-16 lg:gap-8">
           
           {/* LEFT: TEXT & CTA */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex-1 flex flex-col items-start text-left z-20"
+            className="flex-1 flex flex-col items-start text-left z-20 w-full"
           >
-            {/* Logo */}
+            {/* Logo (Removed white box and border) */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="w-16 h-16 bg-white flex items-center justify-center mb-6 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-2xl overflow-hidden relative group"
+              className="mb-8"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <img src="/logo.png" alt="Ritual Logo" className="w-8 h-8 object-contain" />
+              <img src="/logo.png" alt="Ritual Logo" className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-sm" />
             </motion.div>
 
             {/* Main Headline */}
@@ -126,7 +126,7 @@ export default function Page() {
             >
               <button 
                 onClick={scrollToFirstSystem}
-                className="px-8 py-4 rounded-full bg-slate-900 text-white font-bold tracking-wide hover:bg-cyan-600 transition-all duration-300 shadow-[0_10px_40px_rgba(6,182,212,0.3)] hover:shadow-[0_10px_40px_rgba(6,182,212,0.5)] hover:-translate-y-1"
+                className="px-8 py-4 rounded-full bg-slate-900 text-white font-bold tracking-wide hover:bg-cyan-600 transition-all duration-300 shadow-[0_10px_40px_rgba(6,182,212,0.3)] hover:shadow-[0_10px_40px_rgba(6,182,212,0.5)] hover:-translate-y-1 w-full sm:w-auto"
               >
                 Explore Systems
               </button>
@@ -169,7 +169,7 @@ export default function Page() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 hidden md:flex"
         >
           <div className="w-[1px] h-16 bg-gradient-to-b from-cyan-400 via-blue-400 to-transparent" />
         </motion.div>
