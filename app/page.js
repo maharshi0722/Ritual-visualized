@@ -3,14 +3,14 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-// Updated titles to include "Ritual"
+// Updated titles, tags, and full descriptions matching the image
 const systems = [
-  { id: "01", title: "Ritual Resonance", desc: "Dynamic fee market for compute", link: "https://ritual-resonance.vercel.app/" },
-  { id: "02", title: "Ritual Symphony", desc: "Sharded + sampled consensus", link: "https://ritual-symphony.vercel.app/" },
-  { id: "03", title: "Ritual vTune", desc: "Verifiable LLM fine-tuning", link: "https://ritual-vtune.vercel.app/" },
-  { id: "04", title: "Ritual Provers", desc: "Optimized proving network", link: "https://ritual-provers.vercel.app/" },
-  { id: "05", title: "Ritual Scheduling", desc: "Native automation", link: "https://ritual-scheduler.vercel.app/" },
-  { id: "06", title: "Ritual Infernet", desc: "Decentralized AI execution", link: "https://ritual-infernet.vercel.app/" },
+  { id: "01", tag: "Compute", title: "Ritual Resonance", desc: "A sophisticated dynamic fee market for compute allocation, balancing supply and demand in real-time.", link: "https://ritual-resonance.vercel.app/" },
+  { id: "02", tag: "Consensus", title: "Ritual Symphony", desc: "Next-gen sharded + sampled consensus mechanism ensuring high throughput and verifiable data integrity.", link: "https://ritual-symphony.vercel.app/" },
+  { id: "03", tag: "MLOps", title: "Ritual vTune", desc: "Verifiable LLM fine-tuning protocols allowing private data to be trained without compromising security.", link: "https://ritual-vtune.vercel.app/" },
+  { id: "04", tag: "ZK-Proof", title: "Ritual Provers", desc: "A hyper-optimized proving network designed for zero-knowledge AI inference and execution.", link: "https://ritual-provers.vercel.app/" },
+  { id: "05", tag: "Automation", title: "Ritual Scheduling", desc: "Native on-chain automation and task scheduling for autonomous AI agent workflows.", link: "https://ritual-scheduler.vercel.app/" },
+  { id: "06", tag: "Inference", title: "Ritual Infernet", desc: "The foundational decentralized execution layer for permissionless AI model deployment.", link: "https://ritual-infernet.vercel.app/" },
 ];
 
 export default function Page() {
@@ -54,7 +54,8 @@ export default function Page() {
   // --- Dynamic Theme Variables ---
   const theme = {
     bg: isDark ? "bg-[#030303]" : "bg-[#f8fafc]",
-    text: isDark ? "text-zinc-400" : "text-slate-600",
+    // Brightened dark mode text for better visibility
+    text: isDark ? "text-zinc-300" : "text-slate-600",
     heading: isDark ? "text-white" : "text-slate-900",
     grid: isDark 
       ? "bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] opacity-60"
@@ -65,7 +66,7 @@ export default function Page() {
     buttonWrapGlow: isDark ? "from-cyan-500 via-purple-500 to-cyan-500" : "from-cyan-400 to-blue-500",
     button: isDark ? "bg-black/80 border-white/10 text-white hover:bg-black" : "bg-slate-900 border-transparent text-white hover:bg-slate-800",
     cardBg: isDark ? "bg-[#0a0a0a] border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:border-white/20" : "bg-white border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-slate-300",
-    bentoBg: isDark ? "bg-white/[0.03] border-white/[0.05] hover:bg-white/[0.06] hover:border-cyan-500/30" : "bg-white border-slate-200 hover:border-cyan-400 shadow-sm hover:shadow-md",
+    bentoBg: isDark ? "bg-[#0a0a0a] border-white/[0.12] hover:border-cyan-500/40" : "bg-white border-slate-200 hover:border-cyan-400 shadow-sm hover:shadow-md",
     iframeBlend: isDark ? "mix-blend-lighten opacity-80" : "mix-blend-normal opacity-90",
   };
 
@@ -112,21 +113,21 @@ export default function Page() {
 
       {/* 🌌 DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-      {/* 🖼️ IMAGE BACKGROUND */}
-<div className="absolute inset-0">
-  <img
-    src="/8.png"
-    alt="Background"
-    className="w-full h-full object-cover opacity-80 md:opacity-70"
-  />
+        {/* 🖼️ IMAGE BACKGROUND */}
+        <div className="absolute inset-0">
+          <img
+            src="/8.png"
+            alt="Background"
+            className="w-full h-full object-cover opacity-80 md:opacity-70"
+          />
 
-  {/* overlay for readability */}
-  <div className={`absolute inset-0 ${
-    isDark 
-      ? "bg-black/60" 
-      : "bg-white/60"
-  }`} />
-</div>
+          {/* overlay for readability */}
+          <div className={`absolute inset-0 transition-colors duration-700 ${
+            isDark 
+              ? "bg-black/60" 
+              : "bg-white/60"
+          }`} />
+        </div>
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1], x: [0, 50, 0], y: [0, 30, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -281,7 +282,7 @@ Understand how everything connects and works together.
                   </h2>
 
                   <p className={`text-lg md:text-2xl font-light mb-10 max-w-lg leading-relaxed transition-colors duration-700 ${theme.text}`}>
-                    {sys.desc}.
+                    {sys.desc}
                   </p>
 
                   <div>
@@ -317,7 +318,7 @@ Understand how everything connects and works together.
                         <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
                         <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
                       </div>
-                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] tracking-wider px-4 py-1.5 rounded-md border shadow-inner transition-colors duration-700 ${isDark ? 'bg-black/40 text-zinc-500 border-white/5' : 'bg-white text-slate-500 border-slate-200'}`}>
+                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] tracking-wider px-4 py-1.5 rounded-md border shadow-inner transition-colors duration-700 ${isDark ? 'bg-black/40 text-zinc-400 border-white/5' : 'bg-white text-slate-500 border-slate-200'}`}>
                         {sys.link.replace('https://', '')}
                       </div>
                       <div className="w-10" />
@@ -343,7 +344,7 @@ Understand how everything connects and works together.
       {/* =========================================
           SECTION 3: BENTO GRID
           ========================================= */}
-      <section className="relative z-10 flex flex-col items-center justify-center py-20 px-5 mb-20">
+      <section className="relative z-10 flex flex-col items-center justify-center pt-10 pb-20 px-5 mb-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -363,7 +364,7 @@ Understand how everything connects and works together.
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
+          className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
         >
           {systems.map((sys, i) => {
             return (
@@ -374,21 +375,31 @@ Understand how everything connects and works together.
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[220px] rounded-3xl transition-all duration-300 overflow-hidden ${theme.bentoBg}`}
+                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[340px] rounded-[2rem] transition-all duration-300 overflow-hidden border ${theme.bentoBg}`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br pointer-events-none transition-colors duration-500 ${isDark ? 'from-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/10 group-hover:to-purple-500/10' : 'from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5'}`} />
                 
-                <div className="relative z-10">
-                  <span className={`inline-block text-xs font-['JetBrains_Mono',monospace] font-bold tracking-[0.2em] mb-4 px-3 py-1 rounded-full transition-colors duration-700 ${isDark ? 'text-cyan-400 bg-cyan-400/10' : 'text-blue-600 bg-blue-50'}`}>
-                    {sys.id}
-                  </span>
-                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-2 transition-colors duration-700 ${theme.heading}`}>
+                <div className="relative z-10 flex flex-col flex-grow">
+                  <div className="flex justify-between items-start mb-10">
+                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded transition-colors duration-700 ${isDark ? 'text-cyan-300 bg-cyan-900/40' : 'text-cyan-600 bg-cyan-50'}`}>
+                      {sys.tag}
+                    </span>
+                    <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] transition-colors duration-700 ${isDark ? 'text-white/20' : 'text-slate-300'}`}>
+                      # {sys.id}
+                    </span>
+                  </div>
+
+                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 transition-colors duration-700 ${theme.heading}`}>
                     {sys.title}
                   </h3>
+                  
+                  <p className={`text-sm md:text-base font-medium opacity-90 leading-relaxed transition-colors duration-700 ${theme.text}`}>
+                    {sys.desc}
+                  </p>
                 </div>
 
-                <div className="relative z-10 flex justify-end text-cyan-500 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transform -translate-x-2 translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="relative z-10 mt-8 flex items-center text-cyan-500 transition-all duration-300">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-2 transition-transform duration-300">
                     <path d="M5 12h14M12 5l7 7-7 7"/>
                   </svg>
                 </div>
@@ -397,6 +408,42 @@ Understand how everything connects and works together.
           })}
         </motion.div>
       </section>
+
+      {/* =========================================
+          FOOTER
+          ========================================= */}
+      <footer
+        className={`relative z-10 w-full py-8 md:py-10 border-t flex flex-col items-center justify-center transition-colors duration-700 ${
+          isDark
+            ? "border-white/10 bg-[#050505]/80"
+            : "border-slate-200 bg-slate-50/80"
+        } backdrop-blur-md`}
+      >
+        {/* subtle glow line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+
+        <div className="text-center flex flex-col items-center justify-center gap-4">
+          {/* MAIN TEXT */}
+          <span
+            className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-semibold uppercase transition-colors duration-700 ${theme.text}`}
+          >
+            <span className="tracking-[0.3em] md:tracking-[0.6em]">
+              RITUALIZED LAB
+            </span>
+
+            <span className="mx-4 md:mx-6 opacity-40 font-light">//</span>
+
+            <span className="tracking-[0.4em] md:tracking-[0.6em] opacity-70">
+              2026
+            </span>
+          </span>
+
+          {/* BUILT BY */}
+          <p className={`text-[10px] sm:text-xs tracking-widest uppercase opacity-60 transition-colors duration-700 ${theme.text}`}>
+            Built by <span className="font-semibold text-cyan-500">Maharshi</span>
+          </p>
+        </div>
+      </footer>
       
     </div>
   );
