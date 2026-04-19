@@ -112,8 +112,21 @@ export default function Page() {
 
       {/* 🌌 DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className={`absolute inset-0 bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,black_40%,transparent_100%)] transition-colors duration-700 ${theme.grid}`} />
-        
+      {/* 🖼️ IMAGE BACKGROUND */}
+<div className="absolute inset-0">
+  <img
+    src="/8.png"
+    alt="Background"
+    className="w-full h-full object-cover opacity-80 md:opacity-70"
+  />
+
+  {/* overlay for readability */}
+  <div className={`absolute inset-0 ${
+    isDark 
+      ? "bg-black/60" 
+      : "bg-white/60"
+  }`} />
+</div>
         <motion.div 
           animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1], x: [0, 50, 0], y: [0, 30, 0] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
