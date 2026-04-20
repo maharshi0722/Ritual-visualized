@@ -3,16 +3,16 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight, Maximize2 } from "lucide-react";
 
 // Updated titles, tags, and full descriptions
 const systems = [
-  { id: "01", tag: "Compute", title: "Ritual Resonance", desc: "A sophisticated dynamic fee market for compute allocation, balancing supply and demand in real-time.", link: "https://ritual-resonance.vercel.app/" },
-  { id: "02", tag: "Consensus", title: "Ritual Symphony", desc: "Next-gen sharded + sampled consensus mechanism ensuring high throughput and verifiable data integrity.", link: "https://ritual-symphony.vercel.app/" },
-  { id: "03", tag: "MLOps", title: "Ritual vTune", desc: "Verifiable LLM fine-tuning protocols allowing private data to be trained without compromising security.", link: "https://ritual-vtune.vercel.app/" },
-  { id: "04", tag: "ZK-Proof", title: "Ritual Provers", desc: "A hyper-optimized proving network designed for zero-knowledge AI inference and execution.", link: "https://ritual-provers.vercel.app/" },
-  { id: "05", tag: "Automation", title: "Ritual Scheduling", desc: "Native on-chain automation and task scheduling for autonomous AI agent workflows.", link: "https://ritual-scheduler.vercel.app/" },
-  { id: "06", tag: "Inference", title: "Ritual Infernet", desc: "The foundational decentralized execution layer for permissionless AI model deployment.", link: "https://ritual-infernet.vercel.app/" },
+  { id: "01", tag: "Inference", title: "Ritual Infernet", desc: "The foundational decentralized execution layer for permissionless AI model deployment.", link: "https://ritual-infernet.vercel.app/" },
+  { id: "02", tag: "Compute", title: "Ritual Resonance", desc: "A sophisticated dynamic fee market for compute allocation, balancing supply and demand in real-time.", link: "https://ritual-resonance.vercel.app/" },
+  { id: "03", tag: "Consensus", title: "Ritual Symphony", desc: "Next-gen sharded + sampled consensus mechanism ensuring high throughput and verifiable data integrity.", link: "https://ritual-symphony.vercel.app/" },
+  { id: "04", tag: "MLOps", title: "Ritual vTune", desc: "Verifiable LLM fine-tuning protocols allowing private data to be trained without compromising security.", link: "https://ritual-vtune.vercel.app/" },
+  { id: "05", tag: "ZK-Proof", title: "Ritual Provers", desc: "A hyper-optimized proving network designed for zero-knowledge AI inference and execution.", link: "https://ritual-provers.vercel.app/" },
+  { id: "06", tag: "Automation", title: "Ritual Scheduling", desc: "Native on-chain automation and task scheduling for autonomous AI agent workflows.", link: "https://ritual-scheduler.vercel.app/" },
 ];
 
 // Navigation Links as SPA Routes
@@ -30,6 +30,9 @@ export default function Page() {
   const [isDark, setIsDark] = useState(true);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
+  // State for Fullscreen SPA Simulation
+  const [activeSim, setActiveSim] = useState(null);
 
   // Handle Scroll for Navbar styling
   useEffect(() => {
@@ -37,6 +40,15 @@ export default function Page() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent body scroll when simulation is open
+  useEffect(() => {
+    if (activeSim || isNavOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [activeSim, isNavOpen]);
 
   // 3D Hover Physics for the Hero Image
   const containerRef = useRef(null);
@@ -72,11 +84,11 @@ export default function Page() {
     }
   };
 
-  // --- Dynamic Theme Variables (Liquid Design) ---
+  // --- Dynamic Theme Variables (High Contrast Liquid Design) ---
   const theme = {
     bg: isDark ? "bg-[#030303]" : "bg-[#f8fafc]",
-    text: isDark ? "text-zinc-300" : "text-slate-600",
-    heading: isDark ? "text-white" : "text-slate-900",
+    text: isDark ? "text-zinc-200" : "text-slate-800",
+    heading: isDark ? "text-white" : "text-black",
     orb1: isDark ? "rgba(6,182,212,0.8)" : "rgba(6,182,212,0.4)",
     orb2: isDark ? "rgba(139,92,246,0.8)" : "rgba(59,130,246,0.4)",
     gradientText: isDark ? "from-cyan-400 via-purple-500 to-cyan-400" : "from-blue-600 via-cyan-500 to-blue-600",
@@ -101,21 +113,17 @@ export default function Page() {
       
       {/* 📥 INJECT CUSTOM FONTS */}
       <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
       `}} />
 
       {/* 🌟 NAVBAR (Liquid Design) */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4' : 'py-6 px-2'}`}>
         <div className={`mx-auto max-w-7xl px-4 lg:px-6 py-3 flex items-center justify-between rounded-full transition-all duration-500 ${scrolled ? theme.liquidNav : 'bg-transparent'}`}>
           
-          {/* Logo (Square, Bigger, No Border) */}
-          <div className="flex items-center gap-3 z-50">
-            <Link href="/">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-500 ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
-                <img src="/logo.png" alt="Logo" className={`w-8 h-8 object-contain ${isDark ? 'invert' : ''}`} />
-              </div>
-            </Link>
-            <Link href="/">
+          {/* Normal Logo (No padding/background wrapper) */}
+          <div className="flex items-center z-50">
+            <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+              <img src="/logo.png" alt="Logo" className={`w-9 h-9 md:w-10 md:h-10 object-contain ${isDark ? 'invert' : ''}`} />
               <span className={`font-['Space_Grotesk',sans-serif] font-bold text-xl md:text-2xl hidden sm:block ${theme.heading}`}>Ritual</span>
             </Link>
           </div>
@@ -126,7 +134,7 @@ export default function Page() {
               <Link 
                 key={link.name} 
                 href={link.href} 
-                className={`px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 hover:bg-white/10 ${theme.text} hover:${theme.heading}`}
+                className={`px-3 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-300 hover:bg-white/10 ${theme.text} hover:${theme.heading}`}
               >
                 {link.name}
               </Link>
@@ -154,7 +162,7 @@ export default function Page() {
               href="https://ritualvisualized.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden sm:flex px-5 py-2.5 rounded-full text-sm font-semibold items-center gap-2 border transition-all ${isDark ? 'bg-white text-black border-white hover:bg-zinc-200' : 'bg-black text-white border-black hover:bg-zinc-800'}`}
+              className={`hidden sm:flex px-5 py-2.5 rounded-full text-sm font-bold items-center gap-2 border transition-all ${isDark ? 'bg-white text-black border-white hover:bg-zinc-200' : 'bg-black text-white border-black hover:bg-zinc-800'}`}
             >
               Access Lab <ArrowUpRight className="w-4 h-4" />
             </a>
@@ -182,7 +190,7 @@ export default function Page() {
                   key={link.name} 
                   href={link.href} 
                   onClick={() => setIsNavOpen(false)}
-                  className={`text-2xl font-['Space_Grotesk'] font-medium py-4 border-b ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'}`}
+                  className={`text-2xl font-['Space_Grotesk'] font-bold py-4 border-b ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'}`}
                 >
                   {link.name}
                 </Link>
@@ -192,7 +200,7 @@ export default function Page() {
                 href="https://ritualvisualized.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`mt-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-2 ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
+                className={`mt-8 py-4 rounded-full text-lg font-bold flex items-center justify-center gap-2 ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
               >
                 Access Lab <ArrowUpRight className="w-5 h-5" />
               </a>
@@ -243,7 +251,7 @@ export default function Page() {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="w-full sm:w-auto relative group">
               <div className={`absolute -inset-1 bg-gradient-to-r rounded-full blur-md opacity-40 group-hover:opacity-100 transition duration-500 animate-pulse ${theme.buttonWrapGlow}`} />
               <button onClick={scrollToFirstSystem} className={`relative w-full sm:w-auto px-8 py-4 rounded-full border transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 overflow-hidden font-['Space_Grotesk',sans-serif] ${theme.button}`}>
-                <span className="relative z-10 font-medium">Explore the Stack</span>
+                <span className="relative z-10 font-bold">Explore the Stack</span>
                 <ArrowUpRight className="relative z-10 w-5 h-5 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </motion.div>
@@ -293,23 +301,21 @@ export default function Page() {
                     {sys.title}
                   </h2>
                   
-                  <p className={`text-lg md:text-xl font-light mb-8 max-w-lg leading-relaxed ${theme.text}`}>
+                  <p className={`text-lg md:text-xl font-medium mb-8 max-w-lg leading-relaxed ${theme.text}`}>
                     {sys.desc}
                   </p>
 
-                  {/* OPEN SIMULATION BUTTON */}
+                  {/* OPEN SIMULATION BUTTON (Opens SPA Modal) */}
                   <div>
-                    <a 
-                      href={sys.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button 
+                      onClick={() => setActiveSim(sys)}
                       className={`group relative inline-flex items-center gap-2 font-bold font-['Space_Grotesk',sans-serif] text-base md:text-lg transition-colors duration-700 ${theme.heading}`}
                     >
-                      <span className={`pb-1 border-b transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/20' : 'border-black/20'}`}>
+                      <span className={`pb-1 border-b-2 transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/30' : 'border-black/30'}`}>
                         Open Simulation
                       </span>
                       <ArrowUpRight className="w-5 h-5 text-cyan-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                    </a>
+                    </button>
                   </div>
                 </motion.div>
 
@@ -321,12 +327,16 @@ export default function Page() {
                         <div className="w-3 h-3 rounded-full bg-amber-400" />
                         <div className="w-3 h-3 rounded-full bg-emerald-400" />
                       </div>
-                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] tracking-wider px-4 py-1 rounded-full ${theme.liquidPill} ${theme.text}`}>
+                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wider px-4 py-1 rounded-full ${theme.liquidPill} ${theme.text}`}>
                         {sys.link.replace('https://', '')}
                       </div>
-                      <div className="w-10" />
+                      
+                      {/* Enlarge Icon to open SPA modal directly from iframe header */}
+                      <button onClick={() => setActiveSim(sys)} className="hover:text-cyan-400 transition-colors">
+                        <Maximize2 className={`w-4 h-4 ${theme.text}`} />
+                      </button>
                     </div>
-                    <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#050505]/50' : 'bg-slate-50/50'}`}>
+                    <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#030303]/50' : 'bg-slate-50/50'}`}>
                       <iframe src={sys.link} title={`${sys.title} Simulation`} loading="lazy" className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`} />
                     </div>
                   </div>
@@ -351,9 +361,14 @@ export default function Page() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {systems.map((sys) => {
             return (
-              <motion.a
-                key={sys.id} href={sys.link} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[340px] rounded-[2rem] transition-all duration-300 overflow-hidden ${theme.liquidCard}`}
+              <motion.div
+                key={sys.id} 
+                onClick={() => setActiveSim(sys)}
+                whileHover={{ scale: 1.02 }} 
+                whileTap={{ scale: 0.98 }}
+                role="button"
+                tabIndex={0}
+                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[340px] rounded-[2rem] transition-all duration-300 overflow-hidden cursor-pointer text-left ${theme.liquidCard}`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br pointer-events-none transition-colors duration-500 ${isDark ? 'from-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/10 group-hover:to-purple-500/10' : 'from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5'}`} />
                 
@@ -362,17 +377,17 @@ export default function Page() {
                     <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded-full ${theme.liquidPill} ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
                       {sys.tag}
                     </span>
-                    <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] ${isDark ? 'text-white/20' : 'text-black/10'}`}>
+                    <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] ${isDark ? 'text-white/30' : 'text-black/20'}`}>
                       # {sys.id}
                     </span>
                   </div>
                   <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 ${theme.heading}`}>{sys.title}</h3>
-                  <p className={`text-sm md:text-base font-medium opacity-90 leading-relaxed ${theme.text}`}>{sys.desc}</p>
+                  <p className={`text-sm md:text-base font-medium leading-relaxed ${theme.text}`}>{sys.desc}</p>
                 </div>
                 <div className="relative z-10 mt-8 flex items-center text-cyan-500 transition-all duration-300">
                   <ArrowUpRight className="w-6 h-6 transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300" />
                 </div>
-              </motion.a>
+              </motion.div>
             );
           })}
         </motion.div>
@@ -391,16 +406,70 @@ export default function Page() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
 
         <div className="text-center flex flex-col items-center justify-center gap-4">
-          <span className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-semibold uppercase transition-colors duration-700 ${theme.text}`}>
+          <span className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-bold uppercase transition-colors duration-700 ${theme.text}`}>
             <span className="tracking-[0.3em] md:tracking-[0.6em]">RITUALIZED LAB</span>
             <span className="mx-4 md:mx-6 opacity-40 font-light">//</span>
             <span className="tracking-[0.4em] md:tracking-[0.6em] opacity-70">2026</span>
           </span>
-          <p className={`text-[10px] sm:text-xs tracking-widest uppercase opacity-60 transition-colors duration-700 ${theme.text}`}>
-            Built by <span className="font-semibold text-cyan-500">Maharshi</span>
+          <p className={`text-[10px] sm:text-xs font-bold tracking-widest uppercase transition-colors duration-700 ${theme.text}`}>
+            Built by <span className="text-cyan-500">Maharshi</span>
           </p>
         </div>
       </footer>
+
+      {/* =========================================
+          FULLSCREEN SPA SIMULATION MODAL
+          ========================================= */}
+      <AnimatePresence>
+        {activeSim && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className={`fixed inset-0 z-[100] flex flex-col w-screen h-screen backdrop-blur-2xl ${isDark ? 'bg-black/95' : 'bg-slate-50/95'}`}
+          >
+            {/* Modal Header */}
+            <div className={`flex items-center justify-between px-6 py-4 border-b ${isDark ? 'border-white/10 bg-black/50' : 'border-black/10 bg-white/50'}`}>
+              <div className="flex items-center gap-4">
+                <span className={`text-cyan-500 font-['JetBrains_Mono'] text-sm font-bold tracking-widest hidden sm:block`}>
+                  {activeSim.id}
+                </span>
+                <div className={`hidden sm:block w-10 h-[1px] bg-gradient-to-r from-cyan-400 to-transparent`} />
+                <span className={`font-bold font-['Space_Grotesk'] text-xl md:text-2xl ${theme.heading}`}>
+                  {activeSim.title}
+                </span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <a 
+                  href={activeSim.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={`text-xs font-['JetBrains_Mono'] font-bold hidden sm:flex items-center gap-2 hover:text-cyan-400 transition-colors ${theme.text}`}
+                >
+                  {activeSim.link.replace('https://', '')} <ArrowUpRight className="w-3 h-3" />
+                </a>
+                <button 
+                  onClick={() => setActiveSim(null)} 
+                  className={`p-2.5 rounded-full transition-all hover:scale-105 active:scale-95 ${theme.liquidPill} ${theme.heading}`}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body (Iframe) */}
+            <div className={`flex-1 w-full h-full relative ${isDark ? 'bg-[#030303]' : 'bg-white'}`}>
+              <iframe 
+                src={activeSim.link} 
+                title={`${activeSim.title} Fullscreen`} 
+                className="absolute inset-0 w-full h-full border-none" 
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
     </div>
   );
