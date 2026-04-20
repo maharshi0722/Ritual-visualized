@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
-// Updated titles, tags, and full descriptions matching the image
+// Updated titles, tags, and full descriptions
 const systems = [
   { id: "01", tag: "Compute", title: "Ritual Resonance", desc: "A sophisticated dynamic fee market for compute allocation, balancing supply and demand in real-time.", link: "https://ritual-resonance.vercel.app/" },
   { id: "02", tag: "Consensus", title: "Ritual Symphony", desc: "Next-gen sharded + sampled consensus mechanism ensuring high throughput and verifiable data integrity.", link: "https://ritual-symphony.vercel.app/" },
@@ -13,9 +15,28 @@ const systems = [
   { id: "06", tag: "Inference", title: "Ritual Infernet", desc: "The foundational decentralized execution layer for permissionless AI model deployment.", link: "https://ritual-infernet.vercel.app/" },
 ];
 
+// Navigation Links as SPA Routes
+const navLinks = [
+  { name: "Resonance", href: "/resonance" },
+  { name: "Symphony", href: "/symphony" },
+  { name: "vTune", href: "/vtune" },
+  { name: "Provers", href: "/provers" },
+  { name: "Scheduling", href: "/scheduling" },
+  { name: "Infernet", href: "/infernet" },
+];
+
 export default function Page() {
-  // Theme State (Default: Light Mode)
-  const [isDark, setIsDark] = useState(false);
+  // States
+  const [isDark, setIsDark] = useState(true);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Handle Scroll for Navbar styling
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // 3D Hover Physics for the Hero Image
   const containerRef = useRef(null);
@@ -51,22 +72,27 @@ export default function Page() {
     }
   };
 
-  // --- Dynamic Theme Variables ---
+  // --- Dynamic Theme Variables (Liquid Design) ---
   const theme = {
     bg: isDark ? "bg-[#030303]" : "bg-[#f8fafc]",
-    // Brightened dark mode text for better visibility
     text: isDark ? "text-zinc-300" : "text-slate-600",
     heading: isDark ? "text-white" : "text-slate-900",
-    grid: isDark 
-      ? "bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] opacity-60"
-      : "bg-[linear-gradient(rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.04)_1px,transparent_1px)] opacity-80",
     orb1: isDark ? "rgba(6,182,212,0.8)" : "rgba(6,182,212,0.4)",
     orb2: isDark ? "rgba(139,92,246,0.8)" : "rgba(59,130,246,0.4)",
     gradientText: isDark ? "from-cyan-400 via-purple-500 to-cyan-400" : "from-blue-600 via-cyan-500 to-blue-600",
+    
+    liquidNav: isDark 
+      ? "bg-black/20 backdrop-blur-2xl border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" 
+      : "bg-white/40 backdrop-blur-2xl border-slate-200/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.8)]",
+    liquidPill: isDark
+      ? "bg-white/5 backdrop-blur-md border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)]"
+      : "bg-white/50 backdrop-blur-md border border-slate-200/50 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]",
+    liquidCard: isDark 
+      ? "bg-white/[0.02] backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)] hover:bg-white/[0.04] hover:border-white/20" 
+      : "bg-white/60 backdrop-blur-xl border border-slate-200 shadow-[0_8px_32px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] hover:bg-white/80",
+    
     buttonWrapGlow: isDark ? "from-cyan-500 via-purple-500 to-cyan-500" : "from-cyan-400 to-blue-500",
-    button: isDark ? "bg-black/80 border-white/10 text-white hover:bg-black" : "bg-slate-900 border-transparent text-white hover:bg-slate-800",
-    cardBg: isDark ? "bg-[#0a0a0a] border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.8)] hover:border-white/20" : "bg-white border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-slate-300",
-    bentoBg: isDark ? "bg-[#0a0a0a] border-white/[0.12] hover:border-cyan-500/40" : "bg-white border-slate-200 hover:border-cyan-400 shadow-sm hover:shadow-md",
+    button: isDark ? "bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]" : "bg-slate-900/90 backdrop-blur-md border-transparent text-white hover:bg-slate-800",
     iframeBlend: isDark ? "mix-blend-lighten opacity-80" : "mix-blend-normal opacity-90",
   };
 
@@ -78,169 +104,165 @@ export default function Page() {
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
       `}} />
 
-      {/* 🌓 THEME TOGGLE BUTTON */}
-      <div className="fixed top-6 right-6 md:top-10 md:right-10 z-50">
-        <button 
-          onClick={() => setIsDark(!isDark)}
-          className={`p-3 rounded-full backdrop-blur-xl border transition-all duration-500 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 ${
-            isDark 
-              ? "bg-white/10 border-white/20 text-yellow-300 hover:bg-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)]" 
-              : "bg-white/50 border-slate-200 text-slate-800 hover:bg-white shadow-lg"
-          }`}
-          aria-label="Toggle Theme"
-        >
-          <motion.div
-            initial={false}
-            animate={{ rotate: isDark ? 360 : 0, scale: isDark ? 1 : 0 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            className="absolute"
+      {/* 🌟 NAVBAR (Liquid Design) */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4' : 'py-6 px-2'}`}>
+        <div className={`mx-auto max-w-7xl px-4 lg:px-6 py-3 flex items-center justify-between rounded-full transition-all duration-500 ${scrolled ? theme.liquidNav : 'bg-transparent'}`}>
+          
+          {/* Logo (Square, Bigger, No Border) */}
+          <div className="flex items-center gap-3 z-50">
+            <Link href="/">
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors duration-500 ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-black/5 hover:bg-black/10'}`}>
+                <img src="/logo.png" alt="Logo" className={`w-8 h-8 object-contain ${isDark ? 'invert' : ''}`} />
+              </div>
+            </Link>
+            <Link href="/">
+              <span className={`font-['Space_Grotesk',sans-serif] font-bold text-xl md:text-2xl hidden sm:block ${theme.heading}`}>Ritual</span>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation Pill (SPA Next/Link) */}
+          <div className={`hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full ${theme.liquidPill}`}>
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className={`px-3 py-1.5 rounded-full text-xs lg:text-sm font-medium transition-all duration-300 hover:bg-white/10 ${theme.text} hover:${theme.heading}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Actions: Theme Toggle & Get Started */}
+          <div className="flex items-center gap-3 z-50">
+            {/* Theme Toggle */}
+            <button 
+              onClick={() => setIsDark(!isDark)}
+              className={`p-2.5 rounded-full transition-all duration-500 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 ${theme.liquidPill} ${isDark ? "text-yellow-300" : "text-slate-800"}`}
+              aria-label="Toggle Theme"
+            >
+              <motion.div initial={false} animate={{ rotate: isDark ? 360 : 0, scale: isDark ? 1 : 0 }} transition={{ duration: 0.5, type: "spring" }} className="absolute">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              </motion.div>
+              <motion.div initial={false} animate={{ rotate: isDark ? 0 : -360, scale: isDark ? 0 : 1 }} transition={{ duration: 0.5, type: "spring" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+              </motion.div>
+            </button>
+
+            {/* Desktop CTA (Linked to Ritual Visualized) */}
+            <a 
+              href="https://ritualvisualized.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`hidden sm:flex px-5 py-2.5 rounded-full text-sm font-semibold items-center gap-2 border transition-all ${isDark ? 'bg-white text-black border-white hover:bg-zinc-200' : 'bg-black text-white border-black hover:bg-zinc-800'}`}
+            >
+              Access Lab <ArrowUpRight className="w-4 h-4" />
+            </a>
+
+            {/* Mobile Hamburger Menu Toggle */}
+            <button className={`md:hidden p-2.5 rounded-full ${theme.liquidPill} ${theme.heading}`} onClick={() => setIsNavOpen(!isNavOpen)}>
+              {isNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isNavOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`fixed inset-0 z-40 pt-28 px-6 pb-6 flex flex-col overflow-y-auto ${isDark ? 'bg-black/95 backdrop-blur-3xl' : 'bg-white/95 backdrop-blur-3xl'}`}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
+            <div className="flex flex-col gap-2 mt-4 text-center">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name} 
+                  href={link.href} 
+                  onClick={() => setIsNavOpen(false)}
+                  className={`text-2xl font-['Space_Grotesk'] font-medium py-4 border-b ${isDark ? 'border-white/10 text-white' : 'border-black/10 text-black'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              
+              <a 
+                href="https://ritualvisualized.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`mt-8 py-4 rounded-full text-lg font-semibold flex items-center justify-center gap-2 ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
+              >
+                Access Lab <ArrowUpRight className="w-5 h-5" />
+              </a>
+            </div>
           </motion.div>
-          <motion.div
-            initial={false}
-            animate={{ rotate: isDark ? 0 : -360, scale: isDark ? 0 : 1 }}
-            transition={{ duration: 0.5, type: "spring" }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </motion.div>
-        </button>
-      </div>
+        )}
+      </AnimatePresence>
 
       {/* 🌌 DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        {/* 🖼️ IMAGE BACKGROUND */}
         <div className="absolute inset-0">
-          <img
-            src="/8.png"
-            alt="Background"
-            className="w-full h-full object-cover opacity-80 md:opacity-70"
-          />
-
-          {/* overlay for readability */}
-          <div className={`absolute inset-0 transition-colors duration-700 ${
-            isDark 
-              ? "bg-black/60" 
-              : "bg-white/60"
-          }`} />
+          <img src="/8.png" alt="Background" className="w-full h-full object-cover opacity-80 md:opacity-70" />
+          <div className={`absolute inset-0 transition-colors duration-700 ${isDark ? "bg-black/60" : "bg-white/60"}`} />
         </div>
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1], x: [0, 50, 0], y: [0, 30, 0] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vh] rounded-full blur-[120px] transition-colors duration-1000"
-          style={{ background: `radial-gradient(ellipse at center, ${theme.orb1}, transparent 60%)` }}
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.3, 1], opacity: [0.08, 0.2, 0.08], x: [0, -40, 0], y: [0, -30, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-[20%] right-[-5%] w-[60vw] h-[60vh] rounded-full blur-[120px] transition-colors duration-1000" 
-          style={{ background: `radial-gradient(ellipse at center, ${theme.orb2}, transparent 60%)` }}
-        />
+        <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1], x: [0, 50, 0], y: [0, 30, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vh] rounded-full blur-[120px] transition-colors duration-1000" style={{ background: `radial-gradient(ellipse at center, ${theme.orb1}, transparent 60%)` }} />
+        <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.08, 0.2, 0.08], x: [0, -40, 0], y: [0, -30, 0] }} transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }} className="absolute top-[20%] right-[-5%] w-[60vw] h-[60vh] rounded-full blur-[120px] transition-colors duration-1000" style={{ background: `radial-gradient(ellipse at center, ${theme.orb2}, transparent 60%)` }} />
       </div>
 
       {/* =========================================
           SECTION 1: HERO
           ========================================= */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-0 md:min-h-screen px-5 pt-24 md:pt-24 pb-12 md:pb-32 max-w-7xl mx-auto">
+      <section className="relative z-10 flex flex-col items-center justify-center min-h-0 md:min-h-screen px-5 pt-32 md:pt-32 pb-12 md:pb-32 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between w-full gap-12 md:gap-8">
           
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex-1 flex flex-col items-center text-center md:items-start md:text-left z-20 w-full"
           >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, type: "spring" }}
-              className="mb-6 md:mb-10 relative"
-            >
-              <div className="absolute inset-0 bg-cyan-400 blur-2xl opacity-20 rounded-full" />
-              <img src="/logo.png" alt="Ritual Logo" className={`relative w-16 h-16 md:w-20 md:h-20 object-contain transition-all duration-700 ${isDark ? 'invert drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]' : 'drop-shadow-md'}`} />
-            </motion.div>
-
             <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.8 }}
               className={`text-[3.5rem] leading-[1.05] sm:text-6xl md:text-[5.5rem] font-bold font-['Space_Grotesk',sans-serif] tracking-tighter mb-6 transition-colors duration-700 ${theme.heading}`}
             >
               Ritual <br />
               <span className="relative inline-block mt-2">
-                <motion.span 
-                  animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  className={`relative text-transparent bg-clip-text bg-gradient-to-r bg-[length:200%_auto] transition-all duration-700 ${theme.gradientText} ${isDark ? 'drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]' : ''}`}
-                >
+                <motion.span animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className={`relative text-transparent bg-clip-text bg-gradient-to-r bg-[length:200%_auto] transition-all duration-700 ${theme.gradientText} ${isDark ? 'drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]' : ''}`}>
                   Visualized Lab
                 </motion.span>
               </span>
             </motion.h1>
 
             <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
               className={`text-[1.1rem] sm:text-lg md:text-xl font-medium max-w-lg leading-relaxed mb-10 mx-auto md:mx-0 transition-colors duration-700 ${theme.text}`}
             >
-             See how the Ritual system works in one place.
-From compute and scheduling to proving and consensus.
-Try each part through live simulations.
-Understand how everything connects and works together.
+             See how the Ritual system works in one place. From compute and scheduling to proving and consensus. Try each part through live simulations.
             </motion.p>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="w-full sm:w-auto relative group"
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="w-full sm:w-auto relative group">
               <div className={`absolute -inset-1 bg-gradient-to-r rounded-full blur-md opacity-40 group-hover:opacity-100 transition duration-500 animate-pulse ${theme.buttonWrapGlow}`} />
-              <button 
-                onClick={scrollToFirstSystem}
-                className={`relative w-full sm:w-auto px-8 py-4 rounded-full backdrop-blur-xl border transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 overflow-hidden font-['Space_Grotesk',sans-serif] ${theme.button}`}
-              >
-                <span className="relative z-10 group-hover:text-cyan-300 transition-colors">Explore the Stack</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="relative z-10 group-hover:translate-y-1 transition-transform text-cyan-400">
-                  <path d="M12 5v14M19 12l-7 7-7-7"/>
-                </svg>
+              <button onClick={scrollToFirstSystem} className={`relative w-full sm:w-auto px-8 py-4 rounded-full border transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 overflow-hidden font-['Space_Grotesk',sans-serif] ${theme.button}`}>
+                <span className="relative z-10 font-medium">Explore the Stack</span>
+                <ArrowUpRight className="relative z-10 w-5 h-5 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </motion.div>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             className="flex-1 w-full flex justify-center md:justify-end relative z-10 mt-10 md:mt-0"
           >
             <motion.div 
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              ref={containerRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
+              animate={{ y: [-10, 10, -10] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              ref={containerRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
               className="relative w-full max-w-[340px] sm:max-w-[400px] md:max-w-[550px] aspect-square group perspective-[1000px]"
             >
-              <motion.div
-                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                className="w-full h-full relative"
-              >
+              <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="w-full h-full relative">
                 <div className={`absolute -inset-4 bg-gradient-to-tr ${isDark ? 'from-cyan-500/30 via-purple-500/20 to-blue-500/30' : 'from-cyan-400/40 via-transparent to-blue-500/40'} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-                
-                <div className={`absolute inset-0 rounded-[2rem] overflow-hidden border backdrop-blur-md p-2 z-10 transition-all duration-500 ${isDark ? 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] bg-black/40 group-hover:border-white/20' : 'border-white/60 shadow-[0_30px_60px_rgba(6,182,212,0.2)] bg-white/50 group-hover:border-white'}`}>
+                <div className={`absolute inset-0 rounded-[2rem] overflow-hidden p-2 z-10 transition-all duration-500 ${theme.liquidCard}`}>
                   <div className="w-full h-full rounded-[1.5rem] overflow-hidden relative">
-                    <img 
-                      src="/3.png" 
-                      alt="Ritual AI Interface" 
-                      className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-all duration-1000 ease-in-out pointer-events-none" />
+                    <img src="/3.png" alt="Ritual AI Interface" className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-700" />
                   </div>
                 </div>
               </motion.div>
@@ -253,84 +275,59 @@ Understand how everything connects and works together.
       {/* =========================================
           SECTION 2: SYSTEMS 
           ========================================= */}
-      <div className="relative z-10 flex flex-col w-full pb-20">
+      <div className="relative z-10 flex flex-col w-full pb-20 mt-10">
         {systems.map((sys, index) => {
           const isTextLeft = index % 2 === 0;
           return (
-            <section 
-              id={`system-${sys.id}`}
-              key={sys.id} 
-              className="min-h-[80vh] px-5 sm:px-12 md:px-20 overflow-hidden flex items-center justify-center py-16 md:py-24"
-            >
+            <section id={`system-${sys.id}`} key={sys.id} className="min-h-[70vh] px-5 sm:px-12 md:px-20 overflow-hidden flex items-center justify-center py-16 md:py-24">
               <div className={`max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 ${isTextLeft ? '' : 'md:flex-row-reverse'}`}>
                 
-                <motion.div 
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: "easeOut" }}
-                  className="flex-1 w-full flex flex-col"
-                >
+                <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="flex-1 w-full flex flex-col">
                   <div className="flex items-center gap-4 mb-6">
                     <span className="text-cyan-500 font-['JetBrains_Mono',monospace] text-sm md:text-base font-bold tracking-widest">{sys.id}</span>
                     <div className="w-12 md:w-20 h-[1px] bg-gradient-to-r from-cyan-400 to-transparent" />
-                    <span className={`font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.3em] uppercase transition-colors duration-700 ${theme.text}`}>Module</span>
+                    <span className={`font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.3em] uppercase ${theme.text}`}>Module</span>
                   </div>
-
-                  <h2 className={`text-5xl sm:text-6xl md:text-[5rem] font-bold font-['Space_Grotesk',sans-serif] tracking-tighter mb-6 leading-[1] transition-colors duration-700 ${theme.heading}`}>
+                  
+                  <h2 className={`text-4xl sm:text-5xl md:text-[4.5rem] font-bold font-['Space_Grotesk',sans-serif] tracking-tighter mb-6 leading-[1] ${theme.heading}`}>
                     {sys.title}
                   </h2>
-
-                  <p className={`text-lg md:text-2xl font-light mb-10 max-w-lg leading-relaxed transition-colors duration-700 ${theme.text}`}>
+                  
+                  <p className={`text-lg md:text-xl font-light mb-8 max-w-lg leading-relaxed ${theme.text}`}>
                     {sys.desc}
                   </p>
 
+                  {/* OPEN SIMULATION BUTTON */}
                   <div>
                     <a 
                       href={sys.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`group relative inline-flex items-center gap-3 font-bold font-['Space_Grotesk',sans-serif] text-base md:text-lg overflow-hidden transition-colors duration-700 ${theme.heading}`}
+                      className={`group relative inline-flex items-center gap-2 font-bold font-['Space_Grotesk',sans-serif] text-base md:text-lg transition-colors duration-700 ${theme.heading}`}
                     >
-                      <span className={`relative z-10 pb-1 border-b transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/20' : 'border-slate-300'}`}>
-                     Open Simulation
+                      <span className={`pb-1 border-b transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/20' : 'border-black/20'}`}>
+                        Open Simulation
                       </span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-500 group-hover:translate-x-1 group-hover:-translate-y-1 transform duration-300">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                      </svg>
+                      <ArrowUpRight className="w-5 h-5 text-cyan-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </a>
                   </div>
                 </motion.div>
 
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
-                  className="flex-[1.3] w-full relative group"
-                >
-                  <div className={`absolute -inset-4 bg-cyan-500/10 blur-2xl rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none ${isDark ? 'block' : 'hidden'}`} />
-                  
-                  <div className={`w-full aspect-[16/10] rounded-xl md:rounded-2xl overflow-hidden relative z-10 transition-all duration-500 group-hover:-translate-y-2 flex flex-col ${theme.cardBg}`}>
-                    <div className={`h-8 md:h-12 border-b flex items-center px-4 justify-between shrink-0 backdrop-blur-md transition-colors duration-700 ${isDark ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
+                <motion.div initial={{ opacity: 0, scale: 0.95, y: 30 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }} className="flex-[1.3] w-full relative group">
+                  <div className={`w-full aspect-[16/10] rounded-xl md:rounded-3xl overflow-hidden relative z-10 transition-all duration-500 group-hover:-translate-y-2 flex flex-col ${theme.liquidCard}`}>
+                    <div className={`h-8 md:h-12 border-b flex items-center px-4 justify-between shrink-0 transition-colors duration-700 ${isDark ? 'bg-white/5 border-white/10' : 'bg-black/5 border-black/10'}`}>
                       <div className="flex gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                        <div className="w-3 h-3 rounded-full bg-rose-400" />
+                        <div className="w-3 h-3 rounded-full bg-amber-400" />
+                        <div className="w-3 h-3 rounded-full bg-emerald-400" />
                       </div>
-                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] tracking-wider px-4 py-1.5 rounded-md border shadow-inner transition-colors duration-700 ${isDark ? 'bg-black/40 text-zinc-400 border-white/5' : 'bg-white text-slate-500 border-slate-200'}`}>
+                      <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] tracking-wider px-4 py-1 rounded-full ${theme.liquidPill} ${theme.text}`}>
                         {sys.link.replace('https://', '')}
                       </div>
                       <div className="w-10" />
                     </div>
-
-                    <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#050505]' : 'bg-slate-50'}`}>
-                      <iframe
-                        src={sys.link}
-                        title={`${sys.title} Simulation`}
-                        loading="lazy"
-                        className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`}
-                      />
+                    <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#050505]/50' : 'bg-slate-50/50'}`}>
+                      <iframe src={sys.link} title={`${sys.title} Simulation`} loading="lazy" className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`} />
                     </div>
                   </div>
                 </motion.div>
@@ -342,66 +339,38 @@ Understand how everything connects and works together.
       </div>
 
       {/* =========================================
-          SECTION 3: BENTO GRID
+          SECTION 3: LIQUID BENTO GRID
           ========================================= */}
       <section className="relative z-10 flex flex-col items-center justify-center pt-10 pb-20 px-5 mb-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 max-w-4xl"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 max-w-4xl">
           <h2 className={`text-4xl sm:text-5xl md:text-7xl font-bold font-['Space_Grotesk',sans-serif] tracking-tight mb-6 leading-[1.1] transition-colors duration-700 ${theme.heading}`}>
             One <span className={`text-transparent bg-clip-text bg-gradient-to-r transition-colors duration-700 ${isDark ? 'from-cyan-400 to-purple-500' : 'from-blue-600 to-cyan-500'}`}>coordinated</span> network.
           </h2>
-          <p className={`text-lg md:text-2xl font-light leading-relaxed transition-colors duration-700 ${theme.text}`}>
-         All systems combine to deliver scalable, verifiable AI execution.
-          </p>
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
-        >
-          {systems.map((sys, i) => {
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+          {systems.map((sys) => {
             return (
               <motion.a
-                key={sys.id}
-                href={sys.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[340px] rounded-[2rem] transition-all duration-300 overflow-hidden border ${theme.bentoBg}`}
+                key={sys.id} href={sys.link} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                className={`group relative flex flex-col justify-between p-8 md:p-10 min-h-[340px] rounded-[2rem] transition-all duration-300 overflow-hidden ${theme.liquidCard}`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br pointer-events-none transition-colors duration-500 ${isDark ? 'from-cyan-500/0 to-purple-500/0 group-hover:from-cyan-500/10 group-hover:to-purple-500/10' : 'from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5'}`} />
                 
                 <div className="relative z-10 flex flex-col flex-grow">
                   <div className="flex justify-between items-start mb-10">
-                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded transition-colors duration-700 ${isDark ? 'text-cyan-300 bg-cyan-900/40' : 'text-cyan-600 bg-cyan-50'}`}>
+                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded-full ${theme.liquidPill} ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
                       {sys.tag}
                     </span>
-                    <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] transition-colors duration-700 ${isDark ? 'text-white/20' : 'text-slate-300'}`}>
+                    <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] ${isDark ? 'text-white/20' : 'text-black/10'}`}>
                       # {sys.id}
                     </span>
                   </div>
-
-                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 transition-colors duration-700 ${theme.heading}`}>
-                    {sys.title}
-                  </h3>
-                  
-                  <p className={`text-sm md:text-base font-medium opacity-90 leading-relaxed transition-colors duration-700 ${theme.text}`}>
-                    {sys.desc}
-                  </p>
+                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 ${theme.heading}`}>{sys.title}</h3>
+                  <p className={`text-sm md:text-base font-medium opacity-90 leading-relaxed ${theme.text}`}>{sys.desc}</p>
                 </div>
-
                 <div className="relative z-10 mt-8 flex items-center text-cyan-500 transition-all duration-300">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-2 transition-transform duration-300">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
+                  <ArrowUpRight className="w-6 h-6 transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300" />
                 </div>
               </motion.a>
             );
@@ -419,26 +388,14 @@ Understand how everything connects and works together.
             : "border-slate-200 bg-slate-50/80"
         } backdrop-blur-md`}
       >
-        {/* subtle glow line */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
 
         <div className="text-center flex flex-col items-center justify-center gap-4">
-          {/* MAIN TEXT */}
-          <span
-            className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-semibold uppercase transition-colors duration-700 ${theme.text}`}
-          >
-            <span className="tracking-[0.3em] md:tracking-[0.6em]">
-              RITUALIZED LAB
-            </span>
-
+          <span className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-semibold uppercase transition-colors duration-700 ${theme.text}`}>
+            <span className="tracking-[0.3em] md:tracking-[0.6em]">RITUALIZED LAB</span>
             <span className="mx-4 md:mx-6 opacity-40 font-light">//</span>
-
-            <span className="tracking-[0.4em] md:tracking-[0.6em] opacity-70">
-              2026
-            </span>
+            <span className="tracking-[0.4em] md:tracking-[0.6em] opacity-70">2026</span>
           </span>
-
-          {/* BUILT BY */}
           <p className={`text-[10px] sm:text-xs tracking-widest uppercase opacity-60 transition-colors duration-700 ${theme.text}`}>
             Built by <span className="font-semibold text-cyan-500">Maharshi</span>
           </p>
