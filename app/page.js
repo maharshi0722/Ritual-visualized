@@ -16,13 +16,14 @@ const systems = [
 ];
 
 // Navigation Links as SPA Routes
+// Navigation Links as Anchor Routes to matching System IDs
 const navLinks = [
-  { name: "Resonance", href: "/resonance" },
-  { name: "Symphony", href: "/symphony" },
-  { name: "vTune", href: "/vtune" },
-  { name: "Provers", href: "/provers" },
-  { name: "Scheduling", href: "/scheduling" },
-  { name: "Infernet", href: "/infernet" },
+  { name: "Infernet", href: "#system-01" },
+  { name: "Resonance", href: "#system-02" },
+  { name: "Symphony", href: "#system-03" },
+  { name: "vTune", href: "#system-04" },
+  { name: "Provers", href: "#system-05" },
+  { name: "Scheduling", href: "#system-06" },
 ];
 
 export default function Page() {
