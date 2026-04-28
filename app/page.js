@@ -3,27 +3,31 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, Maximize2 } from "lucide-react";
+import { Menu, X, ArrowUpRight, Maximize2, User2 } from "lucide-react";
 
-// Updated titles, tags, and full descriptions
-const systems = [
-  { id: "01", tag: "Inference", title: "Ritual Infernet", desc: "The foundational decentralized execution layer for permissionless AI model deployment.", link: "https://ritual-infernet.vercel.app/" },
-  { id: "02", tag: "Compute", title: "Ritual Resonance", desc: "A sophisticated dynamic fee market for compute allocation, balancing supply and demand in real-time.", link: "https://ritual-resonance.vercel.app/" },
-  { id: "03", tag: "Consensus", title: "Ritual Symphony", desc: "Next-gen sharded + sampled consensus mechanism ensuring high throughput and verifiable data integrity.", link: "https://ritual-symphony.vercel.app/" },
-  { id: "04", tag: "MLOps", title: "Ritual vTune", desc: "Verifiable LLM fine-tuning protocols allowing private data to be trained without compromising security.", link: "https://ritual-vtune.vercel.app/" },
-  { id: "05", tag: "ZK-Proof", title: "Ritual Provers", desc: "A hyper-optimized proving network designed for zero-knowledge AI inference and execution.", link: "https://ritual-provers.vercel.app/" },
-  { id: "06", tag: "Automation", title: "Ritual Scheduling", desc: "Native on-chain automation and task scheduling for autonomous AI agent workflows.", link: "https://ritual-scheduler.vercel.app/" },
+// Updated Community dApps list
+const dapps = [
+  { id: "01", name: "Ritual Pump", author: "john", desc: "Token launch platform", url: "https://ritual-token-launch--rizkyalvonzo8.replit.app/" },
+  { id: "02", name: "Ritual Testnet Card", author: "Maharshi", desc: "Mint your identity card", url: "https://ritual-onchain-id.vercel.app/" },
+  { id: "03", name: "Mint Your X Profile", author: "tanjiro", desc: "Web3 social identity mint", url: "https://web-3-profile-mint--rolex9723060.replit.app/" },
+  { id: "04", name: "Ritual Address Analyzer", author: "tanoy", desc: "Analyze on-chain wallet activity", url: "https://ritual-stats-check.vercel.app/" },
+  { id: "05", name: "On-chain Identity", author: "dabid", desc: "Decentralized naming system", url: "https://ritual-names.vercel.app/" },
+  { id: "06", name: "Autonomous Trading Agent", author: "feno", desc: "AI-powered trading dashboard", url: "https://haezl-trading.info/#dashboard" },
+  { id: "07", name: "GM Strike", author: "kency", desc: "Daily ritual interaction tool", url: "https://gritual-striker.vercel.app/" },
+  { id: "08", name: "NFT Marketplace", author: "tanjiro", desc: "Buy & sell NFTs", url: "https://ritual-searcher--tanjir9721.replit.app/" },
+  { id: "09", name: "Ritual DEX", author: "tanoy", desc: "Perp trading exchange", url: "https://ritual-perp-dex.replit.app/" },
+  { id: "10", name: "Ritual Casino", author: "osaragi", desc: "On-chain gaming", url: "https://ritualcasino.lovable.app/" },
+  { id: "11", name: "Prediction Market", author: "john", desc: "Decentralized predictions", url: "https://oracle-predict-market--cahyaeth.replit.app/" }
 ];
 
-// Navigation Links as SPA Routes
-// Navigation Links as Anchor Routes to matching System IDs
+// Navigation Links matching the first few dApp IDs
 const navLinks = [
-  { name: "Infernet", href: "#system-01" },
-  { name: "Resonance", href: "#system-02" },
-  { name: "Symphony", href: "#system-03" },
-  { name: "vTune", href: "#system-04" },
-  { name: "Provers", href: "#system-05" },
-  { name: "Scheduling", href: "#system-06" },
+  { name: "Pump", href: "#dapp-01" },
+  { name: "ID Card", href: "#dapp-02" },
+  { name: "X Profile", href: "#dapp-03" },
+  { name: "Analyzer", href: "#dapp-04" },
+  { name: "Identity", href: "#dapp-05" },
+  { name: "Trading Agent", href: "#dapp-06" },
 ];
 
 export default function Page() {
@@ -32,8 +36,8 @@ export default function Page() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   
-  // State for Fullscreen SPA Simulation
-  const [activeSim, setActiveSim] = useState(null);
+  // State for Fullscreen SPA
+  const [activeApp, setActiveApp] = useState(null);
 
   // Handle Scroll for Navbar styling
   useEffect(() => {
@@ -42,14 +46,14 @@ export default function Page() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when simulation is open
+  // Prevent body scroll when modal is open
   useEffect(() => {
-    if (activeSim || isNavOpen) {
+    if (activeApp || isNavOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
-  }, [activeSim, isNavOpen]);
+  }, [activeApp, isNavOpen]);
 
   // 3D Hover Physics for the Hero Image
   const containerRef = useRef(null);
@@ -78,10 +82,10 @@ export default function Page() {
     y.set(0);
   };
 
-  const scrollToFirstSystem = () => {
-    const firstSystem = document.getElementById("system-01");
-    if (firstSystem) {
-      firstSystem.scrollIntoView({ behavior: "smooth" });
+  const scrollToFirstApp = () => {
+    const firstApp = document.getElementById("dapp-01");
+    if (firstApp) {
+      firstApp.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -121,7 +125,6 @@ export default function Page() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'py-4' : 'py-6 px-2'}`}>
         <div className={`mx-auto max-w-7xl px-4 lg:px-6 py-3 flex items-center justify-between rounded-full transition-all duration-500 ${scrolled ? theme.liquidNav : 'bg-transparent'}`}>
           
-          {/* Normal Logo (No padding/background wrapper) */}
           <div className="flex items-center z-50">
             <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
               <img src="/logo.png" alt="Logo" className={`w-9 h-9 md:w-10 md:h-10 object-contain ${isDark ? 'invert' : ''}`} />
@@ -129,7 +132,6 @@ export default function Page() {
             </Link>
           </div>
 
-          {/* Desktop Navigation Pill (SPA Next/Link) */}
           <div className={`hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full ${theme.liquidPill}`}>
             {navLinks.map((link) => (
               <Link 
@@ -142,9 +144,7 @@ export default function Page() {
             ))}
           </div>
 
-          {/* Right Actions: Theme Toggle & Get Started */}
           <div className="flex items-center gap-3 z-50">
-            {/* Theme Toggle */}
             <button 
               onClick={() => setIsDark(!isDark)}
               className={`p-2.5 rounded-full transition-all duration-500 flex items-center justify-center overflow-hidden hover:scale-105 active:scale-95 ${theme.liquidPill} ${isDark ? "text-yellow-300" : "text-slate-800"}`}
@@ -158,17 +158,6 @@ export default function Page() {
               </motion.div>
             </button>
 
-            {/* Desktop CTA (Linked to Ritual Visualized) */}
-            <a 
-              href="https://ritualvisualized.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`hidden sm:flex px-5 py-2.5 rounded-full text-sm font-bold items-center gap-2 border transition-all ${isDark ? 'bg-white text-black border-white hover:bg-zinc-200' : 'bg-black text-white border-black hover:bg-zinc-800'}`}
-            >
-              Access Lab <ArrowUpRight className="w-4 h-4" />
-            </a>
-
-            {/* Mobile Hamburger Menu Toggle */}
             <button className={`md:hidden p-2.5 rounded-full ${theme.liquidPill} ${theme.heading}`} onClick={() => setIsNavOpen(!isNavOpen)}>
               {isNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -196,15 +185,6 @@ export default function Page() {
                   {link.name}
                 </Link>
               ))}
-              
-              <a 
-                href="https://ritualvisualized.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`mt-8 py-4 rounded-full text-lg font-bold flex items-center justify-center gap-2 ${isDark ? 'bg-white text-black' : 'bg-black text-white'}`}
-              >
-                Access Lab <ArrowUpRight className="w-5 h-5" />
-              </a>
             </div>
           </motion.div>
         )}
@@ -237,7 +217,7 @@ export default function Page() {
               Ritual <br />
               <span className="relative inline-block mt-2">
                 <motion.span animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className={`relative text-transparent bg-clip-text bg-gradient-to-r bg-[length:200%_auto] transition-all duration-700 ${theme.gradientText} ${isDark ? 'drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]' : ''}`}>
-                  Visualized Lab
+                  Community Hub
                 </motion.span>
               </span>
             </motion.h1>
@@ -246,13 +226,13 @@ export default function Page() {
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4, duration: 0.8 }}
               className={`text-[1.1rem] sm:text-lg md:text-xl font-medium max-w-lg leading-relaxed mb-10 mx-auto md:mx-0 transition-colors duration-700 ${theme.text}`}
             >
-             See how the Ritual system works in one place. From compute and scheduling to proving and consensus. Try each part through live simulations.
+             Explore decentralized applications and tools built by the community on top of the Ritual network. Interact and test out live apps below.
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.8 }} className="w-full sm:w-auto relative group">
               <div className={`absolute -inset-1 bg-gradient-to-r rounded-full blur-md opacity-40 group-hover:opacity-100 transition duration-500 animate-pulse ${theme.buttonWrapGlow}`} />
-              <button onClick={scrollToFirstSystem} className={`relative w-full sm:w-auto px-8 py-4 rounded-full border transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 overflow-hidden font-['Space_Grotesk',sans-serif] ${theme.button}`}>
-                <span className="relative z-10 font-bold">Explore the Stack</span>
+              <button onClick={scrollToFirstApp} className={`relative w-full sm:w-auto px-8 py-4 rounded-full border transition-all duration-300 active:scale-95 flex items-center justify-center gap-3 overflow-hidden font-['Space_Grotesk',sans-serif] ${theme.button}`}>
+                <span className="relative z-10 font-bold">Explore dApps</span>
                 <ArrowUpRight className="relative z-10 w-5 h-5 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </motion.div>
@@ -271,7 +251,7 @@ export default function Page() {
                 <div className={`absolute -inset-4 bg-gradient-to-tr ${isDark ? 'from-cyan-500/30 via-purple-500/20 to-blue-500/30' : 'from-cyan-400/40 via-transparent to-blue-500/40'} rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                 <div className={`absolute inset-0 rounded-[2rem] overflow-hidden p-2 z-10 transition-all duration-500 ${theme.liquidCard}`}>
                   <div className="w-full h-full rounded-[1.5rem] overflow-hidden relative">
-                    <img src="/3.png" alt="Ritual AI Interface" className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-700" />
+                    <img src="/3.png" alt="Community Build Hub Interface" className="w-full h-full object-cover scale-[1.02] group-hover:scale-100 transition-transform duration-700" />
                   </div>
                 </div>
               </motion.div>
@@ -282,38 +262,43 @@ export default function Page() {
       </section>
 
       {/* =========================================
-          SECTION 2: SYSTEMS 
+          SECTION 2: COMMUNITY BUILDS LIST
           ========================================= */}
       <div className="relative z-10 flex flex-col w-full pb-20 mt-10">
-        {systems.map((sys, index) => {
+        {dapps.map((dapp, index) => {
           const isTextLeft = index % 2 === 0;
           return (
-            <section id={`system-${sys.id}`} key={sys.id} className="min-h-[70vh] px-5 sm:px-12 md:px-20 overflow-hidden flex items-center justify-center py-16 md:py-24">
+            <section id={`dapp-${dapp.id}`} key={dapp.id} className="min-h-[70vh] px-5 sm:px-12 md:px-20 overflow-hidden flex items-center justify-center py-16 md:py-24">
               <div className={`max-w-7xl mx-auto w-full flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 ${isTextLeft ? '' : 'md:flex-row-reverse'}`}>
                 
                 <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.7, ease: "easeOut" }} className="flex-1 w-full flex flex-col">
                   <div className="flex items-center gap-4 mb-6">
-                    <span className="text-cyan-500 font-['JetBrains_Mono',monospace] text-sm md:text-base font-bold tracking-widest">{sys.id}</span>
+                    <span className="text-cyan-500 font-['JetBrains_Mono',monospace] text-sm md:text-base font-bold tracking-widest">{dapp.id}</span>
                     <div className="w-12 md:w-20 h-[1px] bg-gradient-to-r from-cyan-400 to-transparent" />
-                    <span className={`font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.3em] uppercase ${theme.text}`}>Module</span>
+                    <span className={`font-['JetBrains_Mono',monospace] text-xs font-bold tracking-[0.3em] uppercase ${theme.text}`}>Project</span>
                   </div>
                   
-                  <h2 className={`text-4xl sm:text-5xl md:text-[4.5rem] font-bold font-['Space_Grotesk',sans-serif] tracking-tighter mb-6 leading-[1] ${theme.heading}`}>
-                    {sys.title}
+                  <h2 className={`text-4xl sm:text-5xl md:text-[4.5rem] font-bold font-['Space_Grotesk',sans-serif] tracking-tighter mb-4 leading-[1] ${theme.heading}`}>
+                    {dapp.name}
                   </h2>
                   
+                  <div className="flex items-center gap-2 mb-6">
+                    <User2 className={`w-5 h-5 ${isDark ? 'text-white/60' : 'text-black/60'}`} />
+                    <span className={`font-bold font-['Space_Grotesk'] capitalize ${isDark ? 'text-white/60' : 'text-black/60'}`}>by {dapp.author}</span>
+                  </div>
+                  
                   <p className={`text-lg md:text-xl font-medium mb-8 max-w-lg leading-relaxed ${theme.text}`}>
-                    {sys.desc}
+                    {dapp.desc}
                   </p>
 
-                  {/* OPEN SIMULATION BUTTON (Opens SPA Modal) */}
+                  {/* OPEN APP BUTTON (Opens SPA Modal) */}
                   <div>
                     <button 
-                      onClick={() => setActiveSim(sys)}
+                      onClick={() => setActiveApp(dapp)}
                       className={`group relative inline-flex items-center gap-2 font-bold font-['Space_Grotesk',sans-serif] text-base md:text-lg transition-colors duration-700 ${theme.heading}`}
                     >
                       <span className={`pb-1 border-b-2 transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/30' : 'border-black/30'}`}>
-                        Open Simulation
+                        Launch dApp
                       </span>
                       <ArrowUpRight className="w-5 h-5 text-cyan-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </button>
@@ -329,16 +314,15 @@ export default function Page() {
                         <div className="w-3 h-3 rounded-full bg-emerald-400" />
                       </div>
                       <div className={`text-[9px] md:text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wider px-4 py-1 rounded-full ${theme.liquidPill} ${theme.text}`}>
-                        {sys.link.replace('https://', '')}
+                        {dapp.url.replace('https://', '').split('/')[0]}
                       </div>
                       
-                      {/* Enlarge Icon to open SPA modal directly from iframe header */}
-                      <button onClick={() => setActiveSim(sys)} className="hover:text-cyan-400 transition-colors">
+                      <button onClick={() => setActiveApp(dapp)} className="hover:text-cyan-400 transition-colors">
                         <Maximize2 className={`w-4 h-4 ${theme.text}`} />
                       </button>
                     </div>
                     <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#030303]/50' : 'bg-slate-50/50'}`}>
-                      <iframe src={sys.link} title={`${sys.title} Simulation`} loading="lazy" className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`} />
+                      <iframe src={dapp.url} title={`${dapp.name} App`} loading="lazy" className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`} />
                     </div>
                   </div>
                 </motion.div>
@@ -355,16 +339,16 @@ export default function Page() {
       <section className="relative z-10 flex flex-col items-center justify-center pt-10 pb-20 px-5 mb-10">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 max-w-4xl">
           <h2 className={`text-4xl sm:text-5xl md:text-7xl font-bold font-['Space_Grotesk',sans-serif] tracking-tight mb-6 leading-[1.1] transition-colors duration-700 ${theme.heading}`}>
-            One <span className={`text-transparent bg-clip-text bg-gradient-to-r transition-colors duration-700 ${isDark ? 'from-cyan-400 to-purple-500' : 'from-blue-600 to-cyan-500'}`}>coordinated</span> network.
+            One <span className={`text-transparent bg-clip-text bg-gradient-to-r transition-colors duration-700 ${isDark ? 'from-cyan-400 to-purple-500' : 'from-blue-600 to-cyan-500'}`}>thriving</span> ecosystem.
           </h2>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="w-full max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
-          {systems.map((sys) => {
+          {dapps.map((dapp) => {
             return (
               <motion.div
-                key={sys.id} 
-                onClick={() => setActiveSim(sys)}
+                key={dapp.id} 
+                onClick={() => setActiveApp(dapp)}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
                 role="button"
@@ -375,15 +359,15 @@ export default function Page() {
                 
                 <div className="relative z-10 flex flex-col flex-grow">
                   <div className="flex justify-between items-start mb-10">
-                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded-full ${theme.liquidPill} ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
-                      {sys.tag}
+                    <span className={`text-xs font-['JetBrains_Mono',monospace] font-bold tracking-wide px-3 py-1.5 rounded-full capitalize ${theme.liquidPill} ${isDark ? 'text-cyan-300' : 'text-cyan-700'}`}>
+                      By {dapp.author}
                     </span>
                     <span className={`text-4xl md:text-5xl font-bold font-['Space_Grotesk',sans-serif] ${isDark ? 'text-white/30' : 'text-black/20'}`}>
-                      # {sys.id}
+                      # {dapp.id}
                     </span>
                   </div>
-                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 ${theme.heading}`}>{sys.title}</h3>
-                  <p className={`text-sm md:text-base font-medium leading-relaxed ${theme.text}`}>{sys.desc}</p>
+                  <h3 className={`text-2xl md:text-3xl font-bold font-['Space_Grotesk',sans-serif] mb-3 ${theme.heading}`}>{dapp.name}</h3>
+                  <p className={`text-sm md:text-base font-medium leading-relaxed ${theme.text}`}>{dapp.desc}</p>
                 </div>
                 <div className="relative z-10 mt-8 flex items-center text-cyan-500 transition-all duration-300">
                   <ArrowUpRight className="w-6 h-6 transform group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-300" />
@@ -408,7 +392,7 @@ export default function Page() {
 
         <div className="text-center flex flex-col items-center justify-center gap-4">
           <span className={`flex items-center justify-center font-['Space_Grotesk',sans-serif] text-xs sm:text-sm md:text-base font-bold uppercase transition-colors duration-700 ${theme.text}`}>
-            <span className="tracking-[0.3em] md:tracking-[0.6em]">RITUALIZED LAB</span>
+            <span className="tracking-[0.2em] md:tracking-[0.4em]">COMMUNITY BUILD HUB</span>
             <span className="mx-4 md:mx-6 opacity-40 font-light">//</span>
             <span className="tracking-[0.4em] md:tracking-[0.6em] opacity-70">2026</span>
           </span>
@@ -419,10 +403,10 @@ export default function Page() {
       </footer>
 
       {/* =========================================
-          FULLSCREEN SPA SIMULATION MODAL
+          FULLSCREEN SPA APP MODAL
           ========================================= */}
       <AnimatePresence>
-        {activeSim && (
+        {activeApp && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -434,25 +418,25 @@ export default function Page() {
             <div className={`flex items-center justify-between px-6 py-4 border-b ${isDark ? 'border-white/10 bg-black/50' : 'border-black/10 bg-white/50'}`}>
               <div className="flex items-center gap-4">
                 <span className={`text-cyan-500 font-['JetBrains_Mono'] text-sm font-bold tracking-widest hidden sm:block`}>
-                  {activeSim.id}
+                  {activeApp.id}
                 </span>
                 <div className={`hidden sm:block w-10 h-[1px] bg-gradient-to-r from-cyan-400 to-transparent`} />
                 <span className={`font-bold font-['Space_Grotesk'] text-xl md:text-2xl ${theme.heading}`}>
-                  {activeSim.title}
+                  {activeApp.name}
                 </span>
               </div>
               
               <div className="flex items-center gap-4">
                 <a 
-                  href={activeSim.link} 
+                  href={activeApp.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className={`text-xs font-['JetBrains_Mono'] font-bold hidden sm:flex items-center gap-2 hover:text-cyan-400 transition-colors ${theme.text}`}
                 >
-                  {activeSim.link.replace('https://', '')} <ArrowUpRight className="w-3 h-3" />
+                  {activeApp.url.replace('https://', '').split('/')[0]} <ArrowUpRight className="w-3 h-3" />
                 </a>
                 <button 
-                  onClick={() => setActiveSim(null)} 
+                  onClick={() => setActiveApp(null)} 
                   className={`p-2.5 rounded-full transition-all hover:scale-105 active:scale-95 ${theme.liquidPill} ${theme.heading}`}
                 >
                   <X className="w-5 h-5" />
@@ -463,8 +447,8 @@ export default function Page() {
             {/* Modal Body (Iframe) */}
             <div className={`flex-1 w-full h-full relative ${isDark ? 'bg-[#030303]' : 'bg-white'}`}>
               <iframe 
-                src={activeSim.link} 
-                title={`${activeSim.title} Fullscreen`} 
+                src={activeApp.url} 
+                title={`${activeApp.name} Fullscreen`} 
                 className="absolute inset-0 w-full h-full border-none" 
               />
             </div>
