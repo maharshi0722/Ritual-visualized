@@ -308,7 +308,8 @@ export default function Page() {
                   {/* OPEN APP BUTTON (Opens SPA Modal) */}
                   <div>
                     <button 
-                      onClick={() => setActiveApp(dapp)}
+                onClick={() => window.open(dapp.url, "_blank")}
+
                       className={`group relative inline-flex items-center gap-2 font-bold font-['Space_Grotesk',sans-serif] text-base md:text-lg transition-colors duration-700 ${theme.heading}`}
                     >
                       <span className={`pb-1 border-b-2 transition-colors duration-300 group-hover:border-cyan-400 ${isDark ? 'border-white/30' : 'border-black/30'}`}>
@@ -331,9 +332,11 @@ export default function Page() {
                         {dapp.url.replace('https://', '').split('/')[0]}
                       </div>
                       
-                      <button onClick={() => setActiveApp(dapp)} className="hover:text-cyan-400 transition-colors">
+<button onClick={() => window.open(dapp.url, "_blank")}>
+  Launch dApp
+</button>
                         <Maximize2 className={`w-4 h-4 ${theme.text}`} />
-                      </button>
+            
                     </div>
                     <div className={`relative flex-1 w-full h-full transition-colors duration-700 ${isDark ? 'bg-[#030303]/50' : 'bg-slate-50/50'}`}>
                       <iframe src={dapp.url} title={`${dapp.name} App`} loading="lazy" className={`absolute inset-0 w-full h-full border-none group-hover:opacity-100 transition-opacity duration-500 ${theme.iframeBlend}`} />
@@ -362,7 +365,7 @@ export default function Page() {
             return (
               <motion.div
                 key={dapp.id} 
-                onClick={() => setActiveApp(dapp)}
+                onClick={() => window.open(dapp.url, "_blank")}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
                 role="button"
