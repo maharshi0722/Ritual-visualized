@@ -17,7 +17,21 @@ const dapps = [
   { id: "08", name: "NFT Marketplace", author: "tanjiro", desc: "Buy & sell NFTs", url: "https://ritual-searcher--tanjir9721.replit.app/" },
   { id: "09", name: "Ritual DEX", author: "tanoy", desc: "Perp trading exchange", url: "https://ritual-perp-dex.replit.app/" },
   { id: "10", name: "Ritual Casino", author: "osaragi", desc: "On-chain gaming", url: "https://ritualcasino.lovable.app/" },
-  { id: "11", name: "Prediction Market", author: "john", desc: "Decentralized predictions", url: "https://oracle-predict-market--cahyaeth.replit.app/" }
+  { id: "11", name: "Prediction Market", author: "john", desc: "Decentralized predictions", url: "https://oracle-predict-market--cahyaeth.replit.app/" },
+
+  { id: "13", name: "Ritual Hub", author: "Maharshi", desc: "Central hub for Ritual testnet tools", url: "https://ritual-testnet-hub.vercel.app" },
+  { id: "14", name: "Ritual Bounty Card Generator", author: "Tanoy", desc: "Generate your Ritual bounty card", url: "https://wanted-on-ritual.replit.app/" },
+  { id: "15", name: "Ritual Recogniser", author: "Maharshi", desc: "Recognition tool for Ritual ecosystem", url: "https://ritual-recognition.lovable.app/" },
+  { id: "16", name: "Ritual Builder Proof", author: "-", desc: "Proof of builder activity", url: "https://ritual-builder-proof.pages.dev/" },
+  { id: "17", name: "Ritual Tamagotchi", author: "Lola", desc: "Virtual pet on Ritual", url: "https://ritual-tamagotchi.vercel.app/" },
+  { id: "18", name: "Ritual Contract Creator", author: "Joyesh", desc: "Create smart contracts easily", url: "https://ritual-create-contract.vercel.app/" },
+  { id: "19", name: "Ritual Mission Console", author: "-", desc: "Track and manage missions", url: "https://ritual-console.netlify.app/" },
+  { id: "20", name: "Jumping Siggy", author: "-", desc: "Fun on-chain game", url: "https://jumping-siggy-the-pussy.vercel.app/" },
+  { id: "21", name: "Ritual Community Map", author: "tanjiro", desc: "Visual map of Ritual community", url: "https://ritual-foundation--tanjiro97211.replit.app/" },
+  { id: "22", name: "Rekt or Rich", author: "-", desc: "Prediction market game", url: "https://ramavenom.github.io/rekt-or-rich/" },
+  { id: "23", name: "Ritual Memory Vault", author: "-", desc: "Store memories on-chain", url: "https://ritual-memory-vault.replit.app/" },
+  { id: "24", name: "Ritual Testnet Explorer", author: "-", desc: "Explore Ritual testnet apps", url: "https://ritual-testnet-apps.vercel.app/" },
+  { id: "25", name: "Ritual Micro Tap", author: "-", desc: "Micro interaction dApp", url: "https://ritual-micro-tap.vercel.app/" }
 ];
 
 // Navigation Links matching the first few dApp IDs
@@ -217,7 +231,7 @@ export default function Page() {
               Ritual <br />
               <span className="relative inline-block mt-2">
                 <motion.span animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }} transition={{ duration: 8, repeat: Infinity, ease: "linear" }} className={`relative text-transparent bg-clip-text bg-gradient-to-r bg-[length:200%_auto] transition-all duration-700 ${theme.gradientText} ${isDark ? 'drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]' : ''}`}>
-                  Community Hub
+                  Community Build Hub
                 </motion.span>
               </span>
             </motion.h1>
