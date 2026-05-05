@@ -31,7 +31,19 @@ const dapps = [
   { id: "22", name: "Rekt or Rich", author: "-", desc: "Prediction market game", url: "https://ramavenom.github.io/rekt-or-rich/" },
   { id: "23", name: "Ritual Memory Vault", author: "-", desc: "Store memories on-chain", url: "https://ritual-memory-vault.replit.app/" },
   { id: "24", name: "Ritual Testnet Explorer", author: "-", desc: "Explore Ritual testnet apps", url: "https://ritual-testnet-apps.vercel.app/" },
-  { id: "25", name: "Ritual Micro Tap", author: "-", desc: "Micro interaction dApp", url: "https://ritual-micro-tap.vercel.app/" }
+  { id: "25", name: "Ritual Micro Tap", author: "-", desc: "Micro interaction dApp", url: "https://ritual-micro-tap.vercel.app/" },
+    { id: "26", name: "Ritual Score Checker", author: "-", desc: "Wallet analytics and scoring tool", url: "https://ritual-score-checker--0xrumora.replit.app/" },
+  { id: "27", name: "Community Faucet", author: "-", desc: "Access community-powered faucet for testnet tokens", url: "https://ritual-faucet-blueprint--ritualcommunity.replit.app/" },
+  { id: "28", name: "Siggy Power Card", author: "-", desc: "Collect and explore Siggy power cards", url: "https://siggy-power-cards.vercel.app/" },
+  { id: "29", name: "Lucky Arcade Ritual", author: "-", desc: "Arcade-style on-chain gaming experience", url: "https://ritual-casino-quest.lovable.app/" },
+  { id: "30", name: "Ritual Oracle", author: "-", desc: "On-chain oracle for data and insights", url: "https://ritual-oracle-two.vercel.app/" },
+  { id: "31", name: "Ritual Bubble Shooter", author: "-", desc: "Casual bubble shooter game on Ritual", url: "https://ritual-bubble-shooter-jt.lovable.app/" },
+  { id: "32", name: "Siggy Pixelverse", author: "-", desc: "Pixel-based Siggy interactive world", url: "https://siggy-pixelverse.lovable.app/" },
+  { id: "33", name: "Ritual Arena", author: "-", desc: "Competitive arena-style gameplay", url: "https://ritualarena1.vercel.app/" },
+  { id: "34", name: "DiaRoutine Bot", author: "-", desc: "Telegram bot for diabetes diary tracking", url: "https://t.me/DiaRoutine_Bot" },
+  { id: "35", name: "Ritcord", author: "-", desc: "Ritual Discord tracker with NFT minting", url: "https://www.ritcord.xyz/" },
+  { id: "36", name: "Siggy Ritualizer", author: "-", desc: "Transform and interact with Siggy assets", url: "https://siggy-ritualizer.vercel.app/" },
+  { id: "37", name: "Ritual Coin Flip", author: "-", desc: "Simple on-chain coin flip game", url: "https://ritual-flip.vercel.app/" }
 ];
 
 // Navigation Links matching the first few dApp IDs
