@@ -7,43 +7,530 @@ import { Menu, X, ArrowUpRight, Maximize2, User2 } from "lucide-react";
 
 // Updated Community dApps list
 const dapps = [
-  { id: "01", name: "Ritual Pump", author: "john", desc: "Token launch platform", url: "https://ritual-token-launch--rizkyalvonzo8.replit.app/" },
-  { id: "02", name: "Ritual Testnet Card", author: "Maharshi", desc: "Mint your identity card", url: "https://ritual-onchain-id.vercel.app/" },
-  { id: "03", name: "Mint Your X Profile", author: "tanjiro", desc: "Web3 social identity mint", url: "https://web-3-profile-mint--rolex9723060.replit.app/" },
-  { id: "04", name: "Ritual Address Analyzer", author: "tanoy", desc: "Analyze on-chain wallet activity", url: "https://ritual-stats-check.vercel.app/" },
-  { id: "05", name: "On-chain Identity", author: "dabid", desc: "Decentralized naming system", url: "https://ritual-names.vercel.app/" },
-  { id: "06", name: "Autonomous Trading Agent", author: "feno", desc: "AI-powered trading dashboard", url: "https://haezl-trading.info/#dashboard" },
-  { id: "07", name: "GM Strike", author: "kency", desc: "Daily ritual interaction tool", url: "https://gritual-striker.vercel.app/" },
-  { id: "08", name: "NFT Marketplace", author: "tanjiro", desc: "Buy & sell NFTs", url: "https://ritual-searcher--tanjir9721.replit.app/" },
-  { id: "09", name: "Ritual DEX", author: "tanoy", desc: "Perp trading exchange", url: "https://ritual-perp-dex.replit.app/" },
-  { id: "10", name: "Ritual Casino", author: "osaragi", desc: "On-chain gaming", url: "https://ritualcasino.lovable.app/" },
-  { id: "11", name: "Prediction Market", author: "john", desc: "Decentralized predictions", url: "https://oracle-predict-market--cahyaeth.replit.app/" },
 
-  { id: "13", name: "Ritual Hub", author: "Maharshi", desc: "Central hub for Ritual testnet tools", url: "https://ritual-testnet-hub.vercel.app" },
-  { id: "14", name: "Ritual Bounty Card Generator", author: "Tanoy", desc: "Generate your Ritual bounty card", url: "https://wanted-on-ritual.replit.app/" },
-  { id: "15", name: "Ritual Recogniser", author: "Maharshi", desc: "Recognition tool for Ritual ecosystem", url: "https://ritual-recognition.lovable.app/" },
-  { id: "16", name: "Ritual Builder Proof", author: "-", desc: "Proof of builder activity", url: "https://ritual-builder-proof.pages.dev/" },
-  { id: "17", name: "Ritual Tamagotchi", author: "Lola", desc: "Virtual pet on Ritual", url: "https://ritual-tamagotchi.vercel.app/" },
-  { id: "18", name: "Ritual Contract Creator", author: "Joyesh", desc: "Create smart contracts easily", url: "https://ritual-create-contract.vercel.app/" },
-  { id: "19", name: "Ritual Mission Console", author: "-", desc: "Track and manage missions", url: "https://ritual-console.netlify.app/" },
-  { id: "20", name: "Jumping Siggy", author: "-", desc: "Fun on-chain game", url: "https://jumping-siggy-the-pussy.vercel.app/" },
-  { id: "21", name: "Ritual Community Map", author: "tanjiro", desc: "Visual map of Ritual community", url: "https://ritual-foundation--tanjiro97211.replit.app/" },
-  { id: "22", name: "Rekt or Rich", author: "-", desc: "Prediction market game", url: "https://ramavenom.github.io/rekt-or-rich/" },
-  { id: "23", name: "Ritual Memory Vault", author: "-", desc: "Store memories on-chain", url: "https://ritual-memory-vault.replit.app/" },
-  { id: "24", name: "Ritual Testnet Explorer", author: "-", desc: "Explore Ritual testnet apps", url: "https://ritual-testnet-apps.vercel.app/" },
-  { id: "25", name: "Ritual Micro Tap", author: "-", desc: "Micro interaction dApp", url: "https://ritual-micro-tap.vercel.app/" },
-    { id: "26", name: "Ritual Score Checker", author: "-", desc: "Wallet analytics and scoring tool", url: "https://ritual-score-checker--0xrumora.replit.app/" },
-  { id: "27", name: "Community Faucet", author: "-", desc: "Access community-powered faucet for testnet tokens", url: "https://ritual-faucet-blueprint--ritualcommunity.replit.app/" },
-  { id: "28", name: "Siggy Power Card", author: "-", desc: "Collect and explore Siggy power cards", url: "https://siggy-power-cards.vercel.app/" },
-  { id: "29", name: "Lucky Arcade Ritual", author: "-", desc: "Arcade-style on-chain gaming experience", url: "https://ritual-casino-quest.lovable.app/" },
-  { id: "30", name: "Ritual Oracle", author: "-", desc: "On-chain oracle for data and insights", url: "https://ritual-oracle-two.vercel.app/" },
-  { id: "31", name: "Ritual Bubble Shooter", author: "-", desc: "Casual bubble shooter game on Ritual", url: "https://ritual-bubble-shooter-jt.lovable.app/" },
-  { id: "32", name: "Siggy Pixelverse", author: "-", desc: "Pixel-based Siggy interactive world", url: "https://siggy-pixelverse.lovable.app/" },
-  { id: "33", name: "Ritual Arena", author: "-", desc: "Competitive arena-style gameplay", url: "https://ritualarena1.vercel.app/" },
-  { id: "34", name: "DiaRoutine Bot", author: "-", desc: "Telegram bot for diabetes diary tracking", url: "https://t.me/DiaRoutine_Bot" },
-  { id: "35", name: "Ritcord", author: "-", desc: "Ritual Discord tracker with NFT minting", url: "https://www.ritcord.xyz/" },
-  { id: "36", name: "Siggy Ritualizer", author: "-", desc: "Transform and interact with Siggy assets", url: "https://siggy-ritualizer.vercel.app/" },
-  { id: "37", name: "Ritual Coin Flip", author: "-", desc: "Simple on-chain coin flip game", url: "https://ritual-flip.vercel.app/" }
+{
+id:"01",
+name:"Ritual Pump",
+owner:"john",
+desc:"Token launch platform",
+url:"https://ritual-token-launch--rizkyalvonzo8.replit.app/",
+image:"/1.png"
+},
+
+{
+id:"02",
+name:"Ritual Testnet Card",
+owner:"maharshi_17904",
+desc:"Mint your Ritual identity card",
+url:"https://ritual-onchain-id.vercel.app/",
+warning:"Use burner wallet only",
+image:"/2.png"
+},
+
+{
+id:"03",
+name:"Mint Your X Profile",
+owner:"tanjiro66_",
+desc:"Mint X profile onchain",
+url:"https://web-3-profile-mint--rolex9723060.replit.app/",
+image:"/3.png"
+},
+
+{
+id:"04",
+name:"Ritual Address Analyzer",
+owner:"0xtanoy",
+desc:"Wallet analytics tool",
+url:"https://ritual-stats-check.vercel.app/",
+image:"/4.png"
+},
+
+{
+id:"05",
+name:"GM Strike",
+owner:"kency17",
+desc:"GM streak every 24h",
+url:"https://gritual-striker.vercel.app/",
+image:"/5.png"
+},
+
+{
+id:"06",
+name:"Siggys Virtual Arcade",
+owner:"0x0saragi",
+desc:"Arcade gaming hub",
+url:"https://siggy-arcade.vercel.app/",
+image:"/6.png"
+},
+
+{
+id:"07",
+name:"Ritual Builder Proof",
+owner:"pushkin_ievgen",
+desc:"Builder verification",
+url:"https://ritual-builder-proof.pages.dev/",
+image:"/7.png"
+},
+
+{
+id:"08",
+name:"Ritual Tamagotchi",
+owner:"mirage5815",
+desc:"Virtual Ritual pet",
+url:"https://ritual-tamagotchi.vercel.app/",
+image:"/8.png"
+},
+
+{
+id:"09",
+name:"Ritual Mission Console",
+owner:"herbcase",
+desc:"Mission tracker",
+url:"https://ritual-console.netlify.app/",
+image:"/9.png"
+},
+
+{
+id:"10",
+name:"Jumping Siggy",
+owner:"randzkie05",
+desc:"Mini game",
+url:"https://jumping-siggy-the-pussy.vercel.app/",
+image:"/10.png"
+},
+
+{
+id:"11",
+name:"Prediction Market",
+owner:"ramaxwhale",
+desc:"Predict outcomes",
+url:"https://ramavenom.github.io/rekt-or-rich/",
+image:"/11.png"
+},
+
+{
+id:"12",
+name:"Ritual Micro Tap",
+owner:"lubudebotton",
+desc:"Tap game",
+url:"https://ritual-micro-tap.vercel.app/",
+image:"/12.png"
+},
+
+{
+id:"13",
+name:"Wallet Analytics",
+owner:"0xrumora",
+desc:"Wallet score checker",
+url:"https://ritual-score-checker--0xrumora.replit.app/",
+image:"/13.png"
+},
+
+{
+id:"14",
+name:"Siggy Power Card",
+owner:"cripson",
+desc:"Collect Siggy cards",
+url:"https://siggy-power-cards.vercel.app/",
+image:"/14.png"
+},
+
+{
+id:"15",
+name:"Lucky Arcade Ritual",
+owner:"clown271292",
+desc:"Arcade game",
+url:"https://ritual-casino-quest.lovable.app/",
+image:"/15.png"
+},
+
+{
+id:"16",
+name:"Ritual Oracle",
+owner:"tutubear",
+desc:"Oracle engine",
+url:"https://ritual-oracle-two.vercel.app/",
+image:"/16.png"
+},
+
+{
+id:"17",
+name:"Ritual Bubble Shooter",
+owner:"jt_026",
+desc:"Bubble game",
+url:"https://ritual-bubble-shooter-jt.lovable.app/",
+image:"/17.png"
+},
+
+{
+id:"18",
+name:"Siggy Pixelverse",
+owner:"pixelsect",
+desc:"Pixel universe",
+url:"https://siggy-pixelverse.lovable.app/",
+image:"/18.png"
+},
+
+{
+id:"19",
+name:"Ritual Arena",
+owner:"jonikeciltomuch",
+desc:"Arena gameplay",
+url:"https://ritualarena1.vercel.app/",
+image:"/19.png"
+},
+
+{
+id:"20",
+name:"DiaRoutine Bot",
+owner:"meison7554",
+desc:"Diabetes TG bot",
+url:"https://t.me/DiaRoutine_Bot",
+image:"/20.png"
+},
+
+{
+id:"21",
+name:"Ritcord NFT Tracker",
+owner:"marksocrates",
+desc:"Discord tracker",
+url:"https://www.ritcord.xyz/",
+image:"/21.png"
+},
+
+{
+id:"22",
+name:"Siggy Ritualizer",
+owner:"dabid3258",
+desc:"Siggy utility",
+url:"https://siggy-ritualizer.vercel.app/",
+image:"/22.png"
+},
+
+{
+id:"23",
+name:"Ritual Coin Flip",
+owner:"nheoweb3",
+desc:"Coin flip game",
+url:"https://ritual-flip.vercel.app/",
+image:"/23.png"
+},
+
+{
+id:"24",
+name:"Genesis NFT Mint",
+owner:"0x_dezzy",
+desc:"Mint Genesis NFTs",
+url:"https://metrix-genesis-mint.lovable.app/",
+image:"/24.png"
+},
+
+{
+id:"25",
+name:"Ritual Identity Generator",
+owner:"emir_ethh",
+desc:"Generate Ritual cards",
+url:"https://ritual-card-pfp-generator.vercel.app/",
+image:"/25.png"
+},
+
+{
+id:"26",
+name:"Ritual Staking",
+owner:"yourinuu",
+desc:"Stake Ritual assets",
+url:"https://ritual-lst.vercel.app/",
+image:"/26.png"
+},
+
+{
+id:"27",
+name:"Siggy Streaks",
+owner:"Thomas",
+desc:"Daily streak system",
+url:"https://siggystreaks.vercel.app/en",
+image:"/27.png"
+},
+
+{
+id:"28",
+name:"Guess The Ritualists",
+owner:"oluwasegun1334",
+desc:"Guessing game",
+url:"https://guess-the-ritualist.vercel.app/",
+image:"/28.png"
+},
+
+{
+id:"29",
+name:"Ritual Paws",
+owner:"_neitenoz26",
+desc:"Pet experience",
+url:"https://ritual-paws.vercel.app/",
+image:"/29.png"
+},
+
+{
+id:"30",
+name:"RitualPad",
+owner:"noyon_12",
+desc:"Launchpad utility",
+url:"https://ritual-rocketpad.vercel.app",
+image:"/30.png"
+},
+
+{
+id:"31",
+name:"3D CASE SEALER",
+owner:"sarimbby",
+desc:"Mystery box opener",
+url:"https://ritual-mystery-box.vercel.app",
+image:"/31.png"
+},
+
+{
+id:"32",
+name:"Sky Predict",
+owner:"pemburuhadiah_",
+desc:"Prediction platform",
+url:"https://skypredict.app/",
+image:"/32.png"
+},
+
+{
+id:"33",
+name:"Ritual Play Spin",
+owner:"siuuuu7707",
+desc:"Spin game",
+url:"https://ritualplayyy.netlify.app/",
+image:"/33.png"
+},
+
+{
+id:"34",
+name:"Siggy Miner",
+owner:"_._mingyu_._",
+desc:"Mining game",
+url:"https://siggy-miner-ritual.vercel.app/",
+image:"/34.png"
+},
+
+{
+id:"35",
+name:"Ritual Multi Sender",
+owner:"jepannyaa_71337",
+desc:"Batch sender",
+url:"https://ritual-batch-bloom.lovable.app/",
+image:"/35.png"
+},
+
+{
+id:"36",
+name:"Ritual Fate Engine",
+owner:"Murat",
+desc:"Fate simulator",
+url:"https://ritual-fate-engine.netlify.app/",
+image:"/36.png"
+},
+
+{
+id:"37",
+name:"Risa Finance",
+owner:"septian227",
+desc:"Finance app",
+url:"https://risa-finance.netlify.app/",
+image:"/37.png"
+},
+
+{
+id:"38",
+name:"Ritual Learn",
+owner:"dotmantissa",
+desc:"Learning hub",
+url:"https://ritual-learn.vercel.app/",
+image:"/38.png"
+},
+
+{
+id:"39",
+name:"Ritual Flip Game",
+owner:"Hanna_tran",
+desc:"Flip cards",
+url:"https://ritual-flip-card-game.fun/",
+image:"/39.png"
+},
+
+{
+id:"40",
+name:"Ritual Survival",
+owner:"kaffee8888",
+desc:"Survival game",
+url:"https://ritualist-game.vercel.app/",
+image:"/40.png"
+},
+
+{
+id:"41",
+name:"Ritual Tip Feed",
+owner:"prv04_",
+desc:"Tip sharing feed",
+url:"https://ritualtipfeed.lovable.app/",
+image:"/41.png"
+},
+
+{
+id:"42",
+name:"The Cauldron",
+owner:"mmorgs",
+desc:"Community hub",
+url:"https://the-cauldron-iota.vercel.app/",
+image:"/42.png"
+},
+
+{
+id:"43",
+name:"Ritual Wall",
+owner:"seesac_",
+desc:"AI generated wall",
+url:"https://ritual-wall-ai-seesac.lovable.app/",
+image:"/43.png"
+},
+
+{
+id:"44",
+name:"Ritual App Revoke",
+owner:"nostalgiagila",
+desc:"Permission revoke tool",
+url:"https://ritualapp-revoke.vercel.app/",
+image:"/44.png"
+},
+
+{
+id:"45",
+name:"Ritual Time Capsule",
+owner:"miretu",
+desc:"Store memories",
+url:"https://ritual-time-capsule.vercel.app/",
+image:"/45.png"
+},
+
+{
+id:"46",
+name:"Ritual Banner NFT",
+owner:"rizannn",
+desc:"NFT banner creator",
+url:"https://nft-ritual-banner-x.vercel.app/",
+image:"/46.png"
+},
+
+{
+id:"47",
+name:"Ritual Fortune",
+owner:"Kej",
+desc:"Fortune generator",
+url:"https://ritualfortunes-juqy.vercel.app/",
+image:"/47.png"
+},
+
+{
+id:"48",
+name:"Siggy Run",
+owner:"aliorbz",
+desc:"Running game",
+url:"https://siggyrunv2.vercel.app/",
+image:"/48.png"
+},
+
+{
+id:"49",
+name:"Stealth Drop",
+owner:"versus777",
+desc:"Drop utility",
+url:"https://stealth-drop-omega.vercel.app/",
+image:"/49.png"
+},
+
+{
+id:"50",
+name:"Ritual Friend Zone",
+owner:"Willox",
+desc:"Community interaction",
+url:"https://ritual-friend.vercel.app/",
+image:"/50.png"
+},
+
+{
+id:"51",
+name:"Ritual Teacher Hub",
+owner:"kitoccrypto",
+desc:"Learning resources",
+url:"https://ritual-teacher-hjb3.vercel.app/",
+image:"/51.png"
+},
+
+{
+id:"52",
+name:"Blockie NFT Dapp",
+owner:"blockiexyz",
+desc:"NFT dapp",
+url:"https://ritual-testnet-six.vercel.app/",
+image:"/52.png"
+},
+
+{
+id:"53",
+name:"Ritual Agent Terminal",
+owner:"NXR",
+desc:"Agent feeds",
+url:"https://ritual-agent-feeds.vercel.app/",
+image:"/53.png"
+},
+
+{
+id:"54",
+name:"Deploy Contract",
+owner:"babangaip",
+desc:"Deploy smart contracts",
+url:"https://ritual-dapp.vercel.app/",
+image:"/54.png"
+},
+
+{
+id:"55",
+name:"Ritual Playground",
+owner:"hidayahhtaufik",
+desc:"Experiment hub",
+url:"https://sigil-ritual.auranode.xyz/",
+image:"/55.png"
+},
+
+{
+id:"56",
+name:"Ritual Signature Cards",
+owner:"antgeo13",
+desc:"Signature cards",
+url:"https://ritual-signature-cards.vercel.app/",
+image:"/56.png"
+},
+
+{
+id:"57",
+name:"Inferstake",
+owner:"tanvirmiqbal",
+desc:"Stake platform",
+url:"https://inferstake.vercel.app",
+image:"/57.png"
+},
+
+{
+id:"58",
+name:"Ritual Scratch",
+owner:"abmdrop",
+desc:"Scratch game",
+url:"https://ritual-scratch.vercel.app/",
+image:"/58.png"
+}
+
 ];
 
 // Navigation Links matching the first few dApp IDs
