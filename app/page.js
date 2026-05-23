@@ -529,6 +529,59 @@ owner:"abmdrop",
 desc:"Scratch game",
 url:"https://ritual-scratch.vercel.app/",
 image:"/58.png"
+},
+  {
+id:"59",
+name:"Ritual Relic Hunt",
+owner:"flaha",
+desc:"Treasure hunting experience across Ritual themed challenges",
+url:"https://ritual-relic-hunt.vercel.app/",
+image:"/59.png"
+},
+
+{
+id:"60",
+name:"Ritual Quiz",
+owner:"i_xer0",
+desc:"Fast-paced Ritual knowledge quiz",
+url:"https://ritual-speed-quiz.vercel.app/",
+image:"/60.png"
+},
+
+{
+id:"61",
+name:"Ritual Claw Carnival",
+owner:"tanjiiiiiiii",
+desc:"Carnival claw machine inspired Ritual game",
+url:"https://ritual-carnival.vercel.app/",
+image:"/61.png"
+},
+
+{
+id:"62",
+name:"Ritual Restor Puzzle",
+owner:"kenavee",
+desc:"Puzzle solving game inside the Ritual universe",
+url:"https://ritual-pixel-quest.vercel.app/",
+image:"/62.png"
+},
+
+{
+id:"63",
+name:"Ritual Collection",
+owner:"tripppin666",
+desc:"Explore curated Ritual assets, creations and collectibles",
+url:"https://ritual-collection.vercel.app/",
+image:"/63.png"
+},
+
+{
+id:"64",
+name:"Ritual's Dead Man Switch",
+owner:"Rohit",
+desc:"Dead-man-switch utility for automated fallback actions",
+url:"https://deadman-switch.netlify.app/",
+image:"/64.png"
 }
 
 ];
